@@ -18,9 +18,6 @@ function addEventListeners()
       newElement();
     }
   });
-
-  markItem();
-
 }
 
 function removeItem(e)
@@ -78,26 +75,23 @@ function newElement()
   {
     document.getElementById("myUL").appendChild(li);
   }
+
   document.getElementById("myInput").value = "";
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
   span.className = "close";
   span.appendChild(txt);
   li.appendChild(span);
+  li.setAttribute('onclick','markItem(event);');
 
-  markItem();
   saveToLocal();
 }
-function markItem()
+
+function markItem(ev)
 {
-  var list=document.getElementsByTagName('li');
-  console.log(list);
-  for (var i = 0; i < list.length; i++)
-  {
-    list[i].addEventListener('click',function(ev)
-    {
-        if (!ev.target.classList.contains('close'))
+if (!ev.target.classList.contains('close'))
         {
+          console.log(ev.target);
           if (ev.target.tagName === 'LI')
           {
             ev.target.classList.toggle('checked');
@@ -115,8 +109,7 @@ function markItem()
           }catch(e){}
         }
         saveToLocal();
-    });
-  }
+
 }
 
 
