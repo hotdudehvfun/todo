@@ -320,8 +320,10 @@ input:focus {
   color: #44409b;
 }
 
-.task span {
+.task span 
+{
   margin-left: 10px;
+  text-transform: capitalize;
 }
 .task.completed>span
 {
@@ -329,21 +331,27 @@ input:focus {
 }
 
 .task.priority {
-  text-transform: uppercase;
+  animation: 1s blinking infinite;  
 }
 
 .task.priority>i {
-  animation: 1s blinking infinite;
+
   color: #ff5d94;
 }
 
 @keyframes blinking {
-  from {
+  
+  0% {
     transform: scale(1);
   }
 
-  to {
+  50%
+  {
     transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 
