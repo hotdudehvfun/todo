@@ -1,0 +1,208 @@
+<html>
+
+<head>
+    <title>TODO things</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="storage.js"></script>
+    <link rel="icon" href="icon.png"/>
+    <link href="material.icon.css" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    
+    <script src=    "https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    
+    <link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="app-container">
+            <!-- current list selected -->
+            <div>
+                <div class="list-with-title" id="selectedList" style="display: none;">List name here</div>
+                <list-age></list-age>
+            </div>
+            <!--contains tasks-->
+            <div id="tasks-container">
+            </div>
+        </div>
+        <!-- bottom dynamic content -->
+        <div class="nav-bar-options">
+            <div class="nav-bar-item" id="open-add-new-list-panel" data-state="false">
+                <i class="material-icons">note_add</i>
+                <span>Create List</span>
+            </div>
+            <div class="nav-bar-item" id="open-view-lists-panel" data-state="false">
+                <i class="material-icons">menu_book</i>
+                <span>View Lists</span>
+            </div>
+            <div class="nav-bar-item" id="open-add-new-task-panel" data-state="false">
+                <i class="material-icons">create</i>
+                <span>Add Task</span>
+            </div>
+            <div class="nav-bar-item" id="open-more-panel" data-state="false">
+                <i class="material-icons">keyboard_arrow_up</i>
+                <span>More</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- add new task -->
+    <div id="add-task-panel-with-selected-list" class="nav-bar-panel" data-dateId="#datetimepicker1">
+        <div class="add-task-title-container">
+            <div id="add-task-to-this-list" aria-multiline="false" role="textbox" tabindex="0" spellcheck="true"
+                dir="ltr" placeholder="Type list name here...">Things to do</div>
+            <i id="fav-button-1" class="material-icons toggle-priority-task-button">favorite_border</i>
+        </div>
+        <div id="new-task-content-1" contenteditable="true" aria-multiline="true" role="textbox"
+            class="new-task-content" tabindex="0" spellcheck="true" dir="ltr" placeholder="Remind me to call..."></div>
+
+        <div class="schedule-message-holder" id="st1-message" style="display: none;" data-isapplied="false">
+            <span>Scheduled:</span>
+            <span id="st1">Time</span>
+            <i class="material-icons cancel-schedule-button">close</i>
+        </div>
+
+
+
+        <div class='input-group date' id='datetimepicker1'>
+            <input style="display: none;" id="datetimevalue1" type='text' class="form-control" />
+            <span style="display: none;" class="input-group-addon">
+                <span>Open</span>
+            </span>
+        </div>
+
+        <div class="add-task-options">
+            <i class="material-icons toggleAlarmButton" data-dateId="#datetimepicker1">add_alert</i>
+            <i class="material-icons" style="color: cadetblue;">color_lens</i>
+            <i class="material-icons" style="color: darkorange;">brush</i>
+            <i id="add-new-task-ok" class="material-icons save-task-button"
+                style="color: #8BC34A; font-weight: bolder;">check</i>
+            <i class="material-icons close-button" style="color: #ff5d94;">cancel</i>
+        </div>
+    </div>
+
+    <!-- add new task with new list -->
+    <div id="add-new-task-with-new-list" class="nav-bar-panel" data-dateId="#datetimepicker2">
+
+        <div class="add-task-title-container">
+            <div id="new-list-title" contenteditable="true" aria-multiline="false" role="textbox" tabindex="0"
+                spellcheck="true" dir="ltr" placeholder="Type list name here..."></div>
+            <i id="fav-button-2" class="material-icons toggle-priority-task-button">favorite_border</i>
+        </div>
+
+        <div contenteditable="true" aria-multiline="true" role="textbox" class="new-task-content" tabindex="0"
+            spellcheck="true" dir="ltr" placeholder="Type here..."></div>
+
+        <div class="schedule-message-holder" id="st2-message" style="display: none;" data-isapplied="false">
+            <span>Scheduled:</span>
+            <span id="st2">Time</span>
+            <i class="material-icons cancel-schedule-button">close</i>
+        </div>
+
+
+        <div class='input-group date' id='datetimepicker2'>
+            <input style="display: none;" id="datetimevalue2" type='text' class="form-control" />
+            <span style="display: none;" class="input-group-addon">
+                <span>Open</span>
+            </span>
+        </div>
+
+        <div class="color-palette">
+            <div style="background: #9C27B0;"></div>
+            <div style="background: #8BC34A;"></div>
+            <div style="background: #00BCD4;"></div>
+            <div style="background: #E91E63;"></div>
+        </div>
+
+        <div class="add-task-options">
+            <i class="material-icons toggleAlarmButton" data-dateId="#datetimepicker2">add_alert</i>
+            <i class="material-icons color-lens" style="color: cadetblue;">color_lens</i>
+            <i class="material-icons" style="color: darkorange;">brush</i>
+            <i id="add-new-task-ok-2" class="material-icons save-task-button"
+                style="color: #8BC34A; font-weight: bolder;">check</i>
+            <i class="material-icons close-button" style="color: #ff5d94;">cancel</i>
+        </div>
+    </div>
+
+    <!-- view lists  -->
+    <div id="view-lists-panel" class="nav-bar-panel">
+    </div>
+
+    <!-- more options panel -->
+    <div id="more-options-panel" class="">
+
+        <div class="more-options-item" style="bottom: 0px;">
+            <span>Show Completed Tasks First</span>
+            <i class="material-icons" style="color: #4CAF50;">check</i>
+        </div>
+
+        <div class="more-options-item" style="bottom: 0px;">
+            <span>Show Pending Tasks First</span>
+            <i class="material-icons">sort</i>
+        </div>
+
+        <div id="remove-completed-tasks-button" class="more-options-item" style="bottom: 0px;">
+            <span>Remove Completed Tasks</span>
+            <i class="material-icons">clear_all</i>
+        </div>
+
+        <div id="remove-all-tasks-button" class="more-options-item" style="bottom: 0px;">
+            <span>Empty List</span>
+            <i class="material-icons">opacity</i>
+        </div>
+
+
+
+        <div id='delete-list-ok' class="more-options-item skip" style="bottom: 0px;">
+            <span>Yes, delete this list!</span>
+            <i class="material-icons" style="background: #df3770;color: white;">check</i>
+        </div>
+        <div id='delete-list-cancel' class="more-options-item skip" style="bottom: 0px;">
+            <span>No, keep this list!</span>
+            <i class="material-icons" style="background: #8BC34A;color: white;">cancel</i>
+        </div>
+        <div id='delete-list-button' class="more-options-item" style="bottom: 0px;">
+            <span>Delete List</span>
+            <i class="material-icons" style="background: #df3770;color: white;">delete</i>
+        </div>
+
+    </div>
+
+    <!-- blocking screen  -->
+    <div id="block-screen" class="hide-block-screen"></div>
+
+    <!-- toast message -->
+    <div class="toast" style="z-index: -99; opacity: 0;">
+    </div>
+
+
+
+    <!-- taskMoreOptiosContainer -->
+    <div class="taskMoreOptionsConatiner hide-task-more-options">
+        <div id="taskChangeStatus" onclick="taskChangeStatus();">Task Complete</div>
+        <div id="taskChangePriority" onclick="taskChangePriority();">Set Priority</div>
+        <div id="taskRemove" onclick="taskRemove();">Remove Task </div>
+        <div id="close-task-more-options" onclick="closeTaskMoreOptions();">Close X</div>
+    </div>
+
+    
+
+    <script type="text/javascript" src="htmlGenerator.js"></script>
+    <script type="text/javascript" src="handleSingleTaskEvents.js"></script>
+    <script type="text/javascript" src="handleOpenCloseEventOfNavBarPanels.js"></script>
+    <script type="text/javascript" src="handleNavBarEvents.js"></script>
+    <script type="text/javascript" src="handleScheduleEvents.js"></script>
+    <script type="text/javascript" src="utilities.js"></script>
+    <script type="text/javascript" src="svgAnimation.js"></script>
+    <script type="text/javascript" src="handleColorPicker.js"></script>
+    
+</body>
+
+</html>
