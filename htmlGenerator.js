@@ -18,9 +18,12 @@ getHtmlContentForList = (list, index) => {
     html += `<list-age>${timeSince(list.dateCreated)}</list-age>`;
     html += `<list-progress style="background-size:${List.getListProgress(list)}% 100%"></list-progress>`;
     html += `<span class="list-progress-text">${List.getProgressText('/', list)} tasks done</span>`;
+    
     //get today and tommorrow upcoming tasks
-    let upComingTasks = List.getUpcomingTasks(list, List.PENDING);
+    //let upComingTasks = List.getUpcomingTasks(list, List.PENDING);
     //here i is index and days diff
+    
+    /* 
     upComingTasks.forEach(function (array, key) {
       html += `<div class="list-upcoming-tasks-headline">${key}</div>`;
       html += "<div>";
@@ -34,6 +37,8 @@ getHtmlContentForList = (list, index) => {
       });
       html += "</div>";
     });
+    */
+
     html += `</div>`;
   }
   return html;
