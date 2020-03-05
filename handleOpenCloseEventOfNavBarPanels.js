@@ -4,10 +4,11 @@ newListPanelEvents = () => {
     //open
     $("#open-add-new-list-panel").click(function ()
     {
+        console.log("clicked on button");
         $(this).data('state', !$(this).data('state'));
         togglePanelState(id, $(this).data('state'), this, () => {
+            
             //settings to be applied when panel is opened
-
             $("#new-list-title").html("");
             document.querySelector(id + " .toggle-priority-task-button").innerHTML = "favorite_border";
             $(id + " .new-task-content").html("");
@@ -37,6 +38,7 @@ selectedListPanelEvents = () => {
     let id = "#add-task-panel-with-selected-list";
     //open
     $("#open-add-new-task-panel").click(function () {
+        console.log("clicked on button");
         if (appObject.listArray.length > 0) {
             $(this).data('state', !$(this).data('state'));
             togglePanelState(id, $(this).data('state'), this, () => {
@@ -71,6 +73,7 @@ viewTotalLists = () => {
     //open view list panel
     $("#open-view-lists-panel").click(function ()
     {
+        console.log("clicked on button");
         if(appObject.listArray.length>0)
         {
             $(this).data('state', !$(this).data('state'));
@@ -163,15 +166,20 @@ toggleMoreOptionsState = (state) => {
 
 //same function for three panels
 togglePanelState = (id, state, trigger, whatToDO) => {
+
     open = () => {
         document.querySelector(id).style.display = "flex";
         trigger.setAttribute("class", "nav-bar-item selected")
-        $(id).animate(
+        $(id).css(
             {
                 bottom: "80px",
                 opacity: 1
-            }, 0, "swing", whatToDO);
+            });
+        
+        //execute call back
+        whatToDO();
 
+        
         //also close other  panels
         others.forEach(item => {
             if (id != item.id)
@@ -190,13 +198,12 @@ togglePanelState = (id, state, trigger, whatToDO) => {
         else
             trigger.setAttribute("class", "nav-bar-item");
         
-        $(id).animate(
+        $(id).css(
             {
                 bottom: "60px",
                 opacity: 0
-            }, 0, "swing", () => {
-                document.querySelector(id).style.display = "none";
             });
+            document.querySelector(id).style.display = "none";
     }
     trigger.setAttribute("data-state", state);
     state ? open() : close();
