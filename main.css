@@ -536,6 +536,8 @@ input:focus {
   margin-bottom: 8px;
   border-radius: 5px;
   background: #44409b1f;
+  overflow-y: auto;
+  max-height: 350px;
 }
 
 

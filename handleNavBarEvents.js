@@ -10,7 +10,7 @@ addEventListeners = () => {
     handleRemoveCompletedTasks();
     handleRemoveAllTasks();
     handleDeleteList();
-
+    handlePastEvent();
 }
 
 
@@ -190,5 +190,16 @@ handleLoadListevent = (index) => {
     } catch (e) { console.log(e) }
 }
 
+handlePastEvent=()=>{
+    document.querySelector("#new-task-content-1").addEventListener("paste",function(e)
+    {
+        //e.preventDefault();
+        console.log(e);
+        
+        setTimeout(function(){
+            document.querySelector("#new-task-content-1").innerHTML=document.querySelector("#new-task-content-1").innerText.trim();
+        },1);
+    });
 
+}
 

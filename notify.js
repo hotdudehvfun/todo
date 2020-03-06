@@ -1,4 +1,4 @@
-notifyMe();
+// notifyMe();
 function notifyMe() {
 
   navigator.serviceWorker.register('sw.js');
