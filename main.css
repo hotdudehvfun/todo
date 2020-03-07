@@ -419,7 +419,7 @@ input:focus {
   color: #44409b;
 }
 
-.list-properties {display: flex;}
+.list-properties {display: inline-flex;align-self: flex-end;}
 
 
 .list-properties div {

@@ -22,12 +22,25 @@
     <div class="main-container">
         <div class="app-container">
             <!-- current list selected -->
-            <div>
+            <div id="selected-list-info">
                 <div class="list-with-title" id="selectedList" style="display: none;">List name here</div>
                 <list-age></list-age>
+               
+                <div class="list-properties">
+                    <div>
+                        <i class="material-icons">check</i>
+                        <span id="list-progress-1"></span>
+                    </div>
+                    <div>
+                        <i class="material-icons">favorite</i>
+                        <span id="list-progress-2"></span>
+                    </div>
+                </div>
+
             </div>
             <!--contains tasks-->
             <div id="tasks-container">
+
             </div>
         </div>
         <!-- bottom dynamic content -->

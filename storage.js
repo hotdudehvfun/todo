@@ -236,20 +236,7 @@ class App {
          handleNoTasksState();
         }else
         {
-          let listPropertyHtml="";
-          listPropertyHtml+=`<div class="list-properties">`;
-                listPropertyHtml+=`<div>`;
-                    listPropertyHtml+=`<i class="material-icons">check</i>`;
-                    listPropertyHtml+=`<span id="list-progress-1"></span>`;
-                listPropertyHtml+=`</div>`;
-                listPropertyHtml+=`<div>`;
-                    listPropertyHtml+=`<i class="material-icons">favorite</i>`;
-                    listPropertyHtml+=`<span id="list-progress-2"></span>`;
-                listPropertyHtml+=`</div>`;
-            listPropertyHtml+=`</div>`;
-          
-            container.innerHTML = listPropertyHtml;
-            container.innerHTML += html;
+          container.innerHTML += html;
           this.updateListProperties(list);
         }
       }
