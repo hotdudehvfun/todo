@@ -219,8 +219,7 @@ input:focus {
   flex-direction: column;
   align-self: baseline;
   padding: 10px;
-  border-top: 8px solid #acacac33;
-  background:#673ab714
+  background:#673ab714;
 }
 
 
