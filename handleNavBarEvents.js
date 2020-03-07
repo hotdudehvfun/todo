@@ -185,8 +185,11 @@ handleDeleteList = () => {
 handleLoadListevent = (index) => {
     try {
         appObject.loadList(index);
+        
         //also close panel
-        togglePanelState("#view-lists-panel", false, document.querySelector("#open-view-lists-panel"));
+        document.querySelector("#view-lists-panel").style.display="none";
+        document.querySelector("#block-screen").setAttribute("class", "hide-block-screen");
+
     } catch (e) { console.log(e) }
 }
 

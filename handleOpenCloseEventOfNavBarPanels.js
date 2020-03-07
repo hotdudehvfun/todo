@@ -71,18 +71,19 @@ selectedListPanelEvents = () => {
 
 viewTotalLists = () => {
     //open view list panel
-    $("#open-view-lists-panel").click(function ()
+    document.querySelector("#open-view-lists-panel").addEventListener("click",function()
     {
         console.log("clicked on button");
         if(appObject.listArray.length>0)
         {
-            $(this).data('state', !$(this).data('state'));
-            togglePanelState("#view-lists-panel", $(this).data('state'), this, () =>
+            //console.log(this.getAttribute("data-state"));
+            togglePanelState("#view-lists-panel", $(this).data('state'),this, () =>
             {
                 //refresh list
                 appObject.loadListsInViewPanel();
-            })
-        }else{
+            });
+        }else
+        {
             showToast("You have no lists to view!");
         }
     });
@@ -147,8 +148,12 @@ toggleMoreOptionsState = (state) => {
             }
         });
 
-        others.forEach(item => {
-            togglePanelState(item.id, false, item.trigger);
+        //close others
+        others.forEach(item =>
+        {
+            document.querySelector(item.id).style.display="none";
+            item.trigger.setAttribute("class","nav-bar-item");
+            
         });
         document.querySelector("#open-more-panel").setAttribute("class", "nav-bar-item selected");
         document.querySelector("#block-screen").setAttribute("class", "");
@@ -181,12 +186,15 @@ togglePanelState = (id, state, trigger, whatToDO) => {
 
         
         //also close other  panels
-        others.forEach(item => {
+        others.forEach(item =>
+        {
             if (id != item.id)
             {
-                togglePanelState(item.id, false, item.trigger);
+                document.querySelector(item.id).style.display="none";
+                item.trigger.setAttribute("class","nav-bar-item");
             }
         });
+
         toggleMoreOptionsState(false);
         document.querySelector("#block-screen").setAttribute("class", "");
     }
@@ -201,10 +209,14 @@ togglePanelState = (id, state, trigger, whatToDO) => {
         $(id).css(
             {
                 bottom: "60px",
-                opacity: 0
+                opacity: 0,
+                display:"none"
             });
             document.querySelector(id).style.display = "none";
     }
-    trigger.setAttribute("data-state", state);
-    state ? open() : close();
+
+    if(document.querySelector(id).style.display=="flex")
+        close();
+    else
+        open();
 }

@@ -161,11 +161,12 @@ input:focus {
   display: flex;
   flex-direction: column;
   text-align: center;
-  font-size: 105%;
+  padding: 0px 7px;
 }
 
 .nav-bar-options .selected {
-  color: #44409b;
+  background: #44409b17;
+  border-radius: 4px;
 }
 
 .nav-bar-options .disabled {

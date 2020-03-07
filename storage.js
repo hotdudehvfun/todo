@@ -189,6 +189,10 @@ class App {
 
         document.querySelector("#selectedList").style.display="block";
         document.querySelector("#selectedList").innerHTML = list.title;
+
+        //list age
+        document.querySelector("list-age").innerHTML="Created: "+ timeSince(list.dateCreated);
+
         let container = document.querySelector("#tasks-container");
         let html = "";
 
@@ -203,7 +207,7 @@ class App {
               html += `"`;
               html += `onClick="handleClickOnTask(this)">`;
               html += `<i class="material-icons">${element.taskIcon}</i>`;
-              html += `<span>${element.title}</span> `;
+              html += `<span>${element.title.trim()}</span> `;
               html += `</div>`;
             }
           });
@@ -223,20 +227,17 @@ class App {
             html += `"`;
             html += `onClick="handleClickOnTask(this)" >`;
             html += `<i class="material-icons">${element.taskIcon}</i>`;
-            html += `<span>${element.title}</span> `;
+            html += `<span>${element.title.trim()}</span> `;
             html += `</div>`;
           });
         });
-
-
-        //list age
-        document.querySelector("list-age").innerHTML="Created: "+ timeSince(list.dateCreated);
+        
         if (html.length == 0)
         {
          handleNoTasksState();
         }else
         {
-          container.innerHTML += html;
+          container.innerHTML = html;
           this.updateListProperties(list);
         }
       }
@@ -375,7 +376,7 @@ class List {
   static PENDING = 4;
 
   constructor(listName) {
-    this.title = listName;
+    this.title = listName.trim();
     this.taskArray = [];
     this.dateCreated = Date.now();
     this.dateCompleted = "";
@@ -458,7 +459,7 @@ class Task {
 
   constructor(taskName) {
     //text of task to display
-    this.title = taskName;
+    this.title = taskName.trim();
     //name of list which to task belongs
     this.listName = "";
     this.dateCreated = Date.now();
@@ -481,33 +482,24 @@ class Icons {
 
   //get task to according to hint
   static getTaskIcon = (element) => {
-    let iconDb =
-      [
-        "date_range#date today tomorrow event yesterday week year",
-        "call#call phone",
-        "email#mail gmail mail",
-        "directions_run#run running excercise outdoor",
-        "flight#flight airport",
-        "train#train railway metro"
-      ];
-
+    
     if (element.isPriorityTasked)
       return "favorite";
 
-    let iconFound = "";
-    iconDb.forEach(function (item) {
-      item.split("#")[1].split(" ").forEach(function (subitem) {
-        if (element.title.toLowerCase().search(subitem.toLowerCase()) != -1) {
-          // console.log("returning");
-          iconFound = item.split("#")[0];
-        }
-      });
-    });
-    // console.log("here");
-    if (iconFound.length > 0)
-      return iconFound;
+      //search accordint to task
+    // let iconFound = "";
+    // iconDb.forEach(function (item) {
+    //   item.split("#")[1].split(" ").forEach(function (subitem) {
+    //     if (element.title.toLowerCase().search(subitem.toLowerCase()) != -1) {
+    //       // console.log("returning");
+    //       iconFound = item.split("#")[0];
+    //     }
+    //   });
+    // });
 
-    return "bubble_chart";
+    // if (iconFound.length > 0)
+    //   return iconFound;
+    return icon_database[Math.floor(Math.random() * icon_database.length)];
   }
 }
 
