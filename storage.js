@@ -236,7 +236,7 @@ class App {
          handleNoTasksState();
         }else
         {
-          container.innerHTML += html;
+          container.innerHTML = html;
           this.updateListProperties(list);
         }
       }
