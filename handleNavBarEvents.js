@@ -255,7 +255,7 @@ function handleSearchEvent()
 
 function loadSearchResults(items)
 {
-    //console.log(items);
+    console.log(items);
     $("#selectedList").html("Search Results...");
     let parent=document.querySelector("#tasks-container");
 
@@ -265,7 +265,7 @@ function loadSearchResults(items)
         html="";
         items.forEach(function(element,index)
         {
-            html += `<div id="" class="task"`;
+            html += `<div id="${element.tempListNo},${element.dateCreated}" class="task"`;
             html += `onClick="handleClickOnTask(this)">`;
             html += `<i class="material-icons">${element.taskIcon}</i>`;
             html += `<span>${element.title.trim()}</span> `;

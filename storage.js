@@ -372,12 +372,14 @@ class App {
       let results=[];
       if (this.listArray.length > 0)
       {
-          this.listArray.forEach(function (list)
+          this.listArray.forEach(function (list,listno)
           {
-            list.taskArray.forEach(function(item,index)
+            list.taskArray.forEach(function(item,taskIndex)
             {
               if(item.title.toLocaleLowerCase().includes(text.toLocaleLowerCase()))
               {
+                item.tempListNo=listno;
+                item.tempIndexNo=taskIndex;
                 results.push(item);
               }
             });
