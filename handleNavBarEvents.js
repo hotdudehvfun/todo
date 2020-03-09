@@ -243,10 +243,10 @@ function handleSearchEvent()
     
 
     //show results
-    $("#search-text").keypress(function(){
+    document.querySelector("#search-text").addEventListener("input",function(){
 
         //search as when type
-        let text=$("#search-text").text().trim();
+        let text=document.querySelector("#search-text").value.trim();
         let searchResultAray=appObject.getSearchResults(text);
         //load search
         loadSearchResults(searchResultAray);
