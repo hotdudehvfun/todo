@@ -1,4 +1,13 @@
 
+let dialogStates=
+{
+  "moreOptions":false,
+  "createList":false,
+  "addTask":false,
+  "viewLists":false
+}
+
+
 //@date: milliseconds
 timeSince = (date) => {
   let minute = 60;

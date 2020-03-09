@@ -1,3 +1,5 @@
+
+
 newListPanelEvents = () => {
 
     let id = "#add-new-task-with-new-list";
@@ -89,14 +91,18 @@ viewTotalLists = () => {
     });
 }
 
+
 viewMoreOptions = () => {
+
     //open view list panel
     $("#open-more-panel").click(function ()
     {
         if(appObject.listArray.length>0)
         {
-            $(this).data('state', !$(this).data('state'));
-            toggleMoreOptionsState($(this).data('state'));
+            //false to hide
+            //true to show
+            toggleMoreOptionsState();
+
         }
     });
 }
@@ -137,6 +143,8 @@ openCreateListFromEmptyState=()=>
 
 //@state:true false
 toggleMoreOptionsState = (state) => {
+    
+    //open options
     open = () => {
         let dist = 70;
         document.querySelectorAll(".more-options-item").forEach(element =>
@@ -148,13 +156,14 @@ toggleMoreOptionsState = (state) => {
             }
         });
 
-        //close others
+        //close others panels
         others.forEach(item =>
         {
             document.querySelector(item.id).style.display="none";
             item.trigger.setAttribute("class","nav-bar-item");
             
         });
+
         document.querySelector("#open-more-panel").setAttribute("class", "nav-bar-item selected");
         document.querySelector("#block-screen").setAttribute("class", "");
     }
@@ -166,7 +175,14 @@ toggleMoreOptionsState = (state) => {
             element.style.bottom = "0px";
         });
     }
+
+    dialogStates.moreOptions=!dialogStates.moreOptions;
+    if(state==undefined)
+    {
+        state=dialogStates.moreOptions;
+    }
     state == true ? open() : close();
+
 }
 
 //same function for three panels
@@ -194,6 +210,8 @@ togglePanelState = (id, state, trigger, whatToDO) => {
                 item.trigger.setAttribute("class","nav-bar-item");
             }
         });
+        //hide search dialog
+        $("#search-dialog").css({display:"none"});
 
         toggleMoreOptionsState(false);
         document.querySelector("#block-screen").setAttribute("class", "");

@@ -364,6 +364,28 @@ class App {
       } 
     }
 
+
+
+    //search tasks
+    getSearchResults=(text)=>
+    {
+      let results=[];
+      if (this.listArray.length > 0)
+      {
+          this.listArray.forEach(function (list)
+          {
+            list.taskArray.forEach(function(item,index)
+            {
+              if(item.title.toLocaleLowerCase().includes(text.toLocaleLowerCase()))
+              {
+                results.push(item);
+              }
+            });
+        });
+      }
+      return results;
+    }
+
 }
 
 

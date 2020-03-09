@@ -11,6 +11,8 @@ addEventListeners = () => {
     handleRemoveAllTasks();
     handleDeleteList();
     handlePastEvent();
+    handleSearchEvent();
+
 }
 
 
@@ -139,6 +141,7 @@ handleRemoveAllTasks = () => {
 }
 
 handleDeleteList = () => {
+
     document.querySelector("#delete-list-button").onclick = () => {
         //show only delete list buttons
         if (appObject.listArray.length > 0) {
@@ -206,3 +209,69 @@ handlePastEvent=()=>{
 
 }
 
+
+
+
+function handleSearchEvent()
+{
+    
+    //click button to open dialog
+    $("#search-button").click(function()
+    {
+        if (appObject.listArray.length > 0)
+        {
+            //show search dialog
+            $("#search-dialog").css({
+                display:"flex",
+                opacity:1,
+                bottom:"80px"
+            });
+            toggleMoreOptionsState(false);
+        }
+    });
+
+    //close dialog
+    $("#search-dialog .close-button").click(function(){
+        //back to normal positions
+        $("#search-dialog").css({
+            display:"none"
+        });
+
+        //load last selected list
+        appObject.loadList(appObject.selectedListIndex);
+    });
+    
+
+    //show results
+    $("#search-text").keypress(function(){
+
+        //search as when type
+        let text=$("#search-text").text().trim();
+        let searchResultAray=appObject.getSearchResults(text);
+        //load search
+        loadSearchResults(searchResultAray);
+    });
+}
+
+function loadSearchResults(items)
+{
+    //console.log(items);
+    $("#selectedList").html("Search Results...");
+    let parent=document.querySelector("#tasks-container");
+
+    let html="Sorry no results found!!!";
+    if(items.length>0)
+    {
+        html="";
+        items.forEach(function(element,index)
+        {
+            html += `<div id="" class="task"`;
+            html += `onClick="handleClickOnTask(this)">`;
+            html += `<i class="material-icons">${element.taskIcon}</i>`;
+            html += `<span>${element.title.trim()}</span> `;
+            html += `</div>`;
+        });
+
+    }
+    parent.innerHTML=html;
+}

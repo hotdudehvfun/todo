@@ -68,21 +68,22 @@
 
     <!-- add new task -->
     <div id="add-task-panel-with-selected-list" class="nav-bar-panel" data-dateId="#datetimepicker1">
+        
         <div class="add-task-title-container">
             <div id="add-task-to-this-list" aria-multiline="false" role="textbox" tabindex="0" spellcheck="true"
                 dir="ltr" placeholder="Type list name here...">Things to do</div>
             <i id="fav-button-1" class="material-icons toggle-priority-task-button">favorite_border</i>
         </div>
+        
         <div id="new-task-content-1" contenteditable="true" aria-multiline="true" role="textbox"
-            class="new-task-content" tabindex="0" spellcheck="true" dir="ltr" placeholder="Remind me to call..."></div>
+            class="new-task-content" tabindex="0" spellcheck="true" dir="ltr" placeholder="Remind me to call...">
+        </div>
 
         <div class="schedule-message-holder" id="st1-message" style="display: none;" data-isapplied="false">
             <span>Scheduled:</span>
             <span id="st1">Time</span>
             <i class="material-icons cancel-schedule-button">close</i>
         </div>
-
-
 
         <div class='input-group date' id='datetimepicker1'>
             <input style="display: none;" id="datetimevalue1" type='text' class="form-control" />
@@ -148,8 +149,36 @@
     <div id="view-lists-panel" class="nav-bar-panel">
     </div>
 
+
+    <!-- search modal -->
+     <!-- add new task -->
+     <div id="search-dialog" class="nav-bar-panel">
+       
+        <div class="add-task-title-container">
+            <div id="" aria-multiline="false" role="textbox">Search</div>
+            <i class="material-icons">search</i>
+        </div>
+        
+        <div id="search-text" contenteditable="true" aria-multiline="true" role="textbox"
+            class="new-task-content" tabindex="0" spellcheck="true" dir="ltr" placeholder="Search...">
+        </div>
+
+        <div class="add-task-options">
+            <i class="material-icons close-button" style="color: #ff5d94;">cancel</i>
+        </div>
+    </div>
+
+
+
+
+
     <!-- more options panel -->
     <div id="more-options-panel" class="">
+
+        <div id="search-button" class="more-options-item" style="bottom: 0px;">
+            <span>Search</span>
+            <i class="material-icons" style="color: #4CAF50;">search</i>
+        </div>
 
         <div class="more-options-item" style="bottom: 0px;">
             <span>Show Completed Tasks First</span>
