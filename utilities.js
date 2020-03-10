@@ -147,3 +147,19 @@ parseBool=(str)=>
 {
   return str=="true";
 }
+
+
+function handleScrollShadow(){
+
+  document.querySelector("#tasks-container").addEventListener("scroll",function(e)
+  {
+    if(this.scrollTop>0)
+    {
+      document.querySelector("#selected-list-info").style.boxShadow="0px 1px 4px #b8b8b8";
+    }else if(this.scrollTop==0)
+    {
+      document.querySelector("#selected-list-info").style.boxShadow="0px 0px gray";
+    }
+  })
+
+}

@@ -1,5 +1,4 @@
 
-
 newListPanelEvents = () => {
 
     let id = "#add-new-task-with-new-list";
@@ -71,25 +70,7 @@ selectedListPanelEvents = () => {
     handleSaveTaskEvent(id);
 }
 
-viewTotalLists = () => {
-    //open view list panel
-    document.querySelector("#open-view-lists-panel").addEventListener("click",function()
-    {
-        console.log("clicked on button");
-        if(appObject.listArray.length>0)
-        {
-            //console.log(this.getAttribute("data-state"));
-            togglePanelState("#view-lists-panel", $(this).data('state'),this, () =>
-            {
-                //refresh list
-                appObject.loadListsInViewPanel();
-            });
-        }else
-        {
-            showToast("You have no lists to view!");
-        }
-    });
-}
+
 
 
 viewMoreOptions = () => {
@@ -115,10 +96,6 @@ let others = [
     {
         "id": "#add-task-panel-with-selected-list",
         "trigger": document.querySelector("#open-add-new-task-panel")
-    },
-    {
-        "id": "#view-lists-panel",
-        "trigger": document.querySelector("#open-view-lists-panel")
     }
 ];
 

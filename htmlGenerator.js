@@ -12,14 +12,18 @@ getHtmlContentForList = (list, index) => {
   if (list != null && list != undefined) {
     html += `<div class="list-panel-item" onclick="handleLoadListevent(${index})">`;
 
+
+    html+=`<div style='display:flex;justify-content: space-between;'>`;
+
     if (index == appObject.selectedListIndex)
       html += `<article class="selected">${list.title}</article>`;
     else
       html += `<article>${list.title}</article>`;
 
-    html += `<list-age>${timeSince(list.dateCreated)}</list-age>`;
+    html += `<span class=list-sub-text>${timeSince(list.dateCreated)}</span>`;
+    html+=`</div>`;
     html += `<list-progress style="background-size:${List.getListProgress(list)}% 100%"></list-progress>`;
-    html += `<span class="list-progress-text">${List.getProgressText('/', list)} tasks done</span>`;
+    html += `<span class=list-sub-text>${List.getProgressText('/', list)} tasks done</span>`;
     
     //get today and tommorrow upcoming tasks
     //let upComingTasks = List.getUpcomingTasks(list, List.PENDING);

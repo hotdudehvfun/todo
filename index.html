@@ -1,41 +1,49 @@
 <html>
+
 <head>
     <title>TODO things</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="storage.js"></script>
-    <link rel="icon" href="icon.png"/>
+    <link rel="icon" href="icon.png" />
     <link href="material.icon.css" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
-    
-    <script src=    "https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
-    
+
     <link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="bootstrap.min.css">
 
 </head>
+
 <body>
 
     <div class="main-container">
         <div class="app-container">
             <!-- current list selected -->
             <div id="selected-list-info">
-                <div class="list-with-title" id="selectedList" style="display: none;">List name here</div>
-                <list-age></list-age>
-               
-                <div class="list-properties">
-                    <div>
-                        <i class="material-icons">check</i>
-                        <span id="list-progress-1"></span>
-                    </div>
-                    <div>
-                        <i class="material-icons">favorite</i>
-                        <span id="list-progress-2"></span>
-                    </div>
+                
+                <!-- name and back button -->
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <i id="back-button" class="material-icons" style="
+    transform: scale(1.5) translate(0px, 1px);
+    padding: 0px 10px;
+">arrow_back</i>
+                    <div class="list-with-title" id="selectedList" style="display: block;">Lists</div>
                 </div>
+
+                <!-- search button -->
+                <div>
+                    <span id="list-age" class="list-sub-text"></span>
+                    <span class="list-sub-text" id="list-progress-1"></span>
+                    <span class="list-sub-text" id="list-progress-2"></span>
+                </div>
+                
+                <input id="search-text"  spellcheck="true" placeholder="Search..."/>
 
             </div>
             <!--contains tasks-->
@@ -49,9 +57,9 @@
                 <i class="material-icons">note_add</i>
                 <span>Create List</span>
             </div>
-            <div class="nav-bar-item" id="open-view-lists-panel" data-state="false">
-                <i class="material-icons">menu_book</i>
-                <span>View Lists</span>
+            <div class="nav-bar-item" id="search-button" data-state="false">
+                <i class="material-icons">search</i>
+                <span>Search</span>
             </div>
             <div class="nav-bar-item" id="open-add-new-task-panel" data-state="false">
                 <i class="material-icons">create</i>
@@ -68,13 +76,13 @@
 
     <!-- add new task -->
     <div id="add-task-panel-with-selected-list" class="nav-bar-panel" data-dateId="#datetimepicker1">
-        
+
         <div class="add-task-title-container">
             <div id="add-task-to-this-list" aria-multiline="false" role="textbox" tabindex="0" spellcheck="true"
                 dir="ltr" placeholder="Type list name here...">Things to do</div>
             <i id="fav-button-1" class="material-icons toggle-priority-task-button">favorite_border</i>
         </div>
-        
+
         <div id="new-task-content-1" contenteditable="true" aria-multiline="true" role="textbox"
             class="new-task-content" tabindex="0" spellcheck="true" dir="ltr" placeholder="Remind me to call...">
         </div>
@@ -145,26 +153,8 @@
         </div>
     </div>
 
-    <!-- view lists  -->
-    <div id="view-lists-panel" class="nav-bar-panel">
-    </div>
 
 
-    <!-- search modal -->
-     <!-- add new task -->
-     <div id="search-dialog" class="nav-bar-panel">
-       
-        <div class="add-task-title-container">
-            <div id="" aria-multiline="false" role="textbox">Search</div>
-            <i class="material-icons">search</i>
-        </div>
-        
-        <input id="search-text" class="new-task-content"  spellcheck="true" placeholder="Search..."/>
-
-        <div class="add-task-options">
-            <i class="material-icons close-button" style="color: #ff5d94;">cancel</i>
-        </div>
-    </div>
 
 
 
@@ -173,7 +163,7 @@
     <!-- more options panel -->
     <div id="more-options-panel" class="">
 
-        <div id="search-button" class="more-options-item" style="bottom: 0px;">
+        <div id="" class="more-options-item" style="bottom: 0px;">
             <span>Search</span>
             <i class="material-icons" style="color: #4CAF50;">search</i>
         </div>
@@ -232,7 +222,7 @@
         <div id="close-task-more-options" onclick="closeTaskMoreOptions();">Close X</div>
     </div>
 
-    
+
 
     <script type="text/javascript" src="htmlGenerator.js"></script>
     <script type="text/javascript" src="handleSingleTaskEvents.js"></script>
@@ -243,10 +233,10 @@
     <script type="text/javascript" src="svgAnimation.js"></script>
     <script type="text/javascript" src="handleColorPicker.js"></script>
     <script type="text/javascript" src="icon_database.js"></script>
-    
 
 
-    
+
+
 </body>
 
 </html>

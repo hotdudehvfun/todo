@@ -183,15 +183,20 @@ class App {
       if (list != null || list != undefined)
       {
         //remove disbaled 
-        document.querySelector("#open-view-lists-panel").setAttribute("class","nav-bar-item");
         document.querySelector("#open-more-panel").setAttribute("class","nav-bar-item");
         document.querySelector("#open-add-new-task-panel").setAttribute("class","nav-bar-item");
 
+        //also hide search bar
+        document.querySelector("#back-button").style.display="none";
+        $("#back-button").val("");
+        
+        
+        document.querySelector("#back-button").style.display="block";
         document.querySelector("#selectedList").style.display="block";
         document.querySelector("#selectedList").innerHTML = list.title;
 
         //list age
-        document.querySelector("list-age").innerHTML="Created: "+ timeSince(list.dateCreated);
+        document.querySelector("#list-age").innerHTML=timeSince(list.dateCreated);
 
         let container = document.querySelector("#tasks-container");
         let html = "";
@@ -238,6 +243,7 @@ class App {
         }else
         {
           container.innerHTML = html;
+         
           this.updateListProperties(list);
         }
       }
@@ -252,12 +258,13 @@ class App {
   updateListProperties = (list) =>
   {    
     document.querySelector("#list-progress-1").innerHTML = List.getProgressText('/', list);
-    document.querySelector("#list-progress-2").innerHTML = List.getCount(List.PRIORITY, list);
+    document.querySelector("#list-progress-2").innerHTML = List.getCount(List.PRIORITY, list)+" favs";
   }
 
-  loadListsInViewPanel = () => {
+  loadListsInViewPanel = () =>
+  {
     if (this.listArray.length > 0) {
-      let container = document.querySelector("#view-lists-panel");
+      let container = document.querySelector("#tasks-container");
       let html = "";
       let tempIndex = 0;
       this.listArray.forEach(function (list)
@@ -266,6 +273,13 @@ class App {
         html += getHtmlContentForList(list, tempIndex);
         tempIndex++;
       });
+
+      document.querySelector("#selectedList").innerHTML="Lists";
+      document.querySelector("#list-age").innerHTML=this.listArray.length+" lists";
+      document.querySelector("#list-progress-1").innerHTML = "";
+      document.querySelector("#list-progress-2").innerHTML = "";
+      document.querySelector("#back-button").style.display="none";
+      document.querySelector("#search-text").style.display="none";
       container.innerHTML = html;
     }
   }

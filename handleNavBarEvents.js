@@ -4,7 +4,6 @@ addEventListeners = () => {
 
     newListPanelEvents();
     selectedListPanelEvents();
-    viewTotalLists();
     viewMoreOptions();
     handleAddAlarmOnTask();
     handleRemoveCompletedTasks();
@@ -12,7 +11,11 @@ addEventListeners = () => {
     handleDeleteList();
     handlePastEvent();
     handleSearchEvent();
+    handleBackButton();
 
+
+    //
+    handleScrollShadow();
 }
 
 
@@ -186,12 +189,9 @@ handleDeleteList = () => {
 }
 
 handleLoadListevent = (index) => {
-    try {
+    try
+    {
         appObject.loadList(index);
-        
-        //also close panel
-        document.querySelector("#view-lists-panel").style.display="none";
-        document.querySelector("#block-screen").setAttribute("class", "hide-block-screen");
 
     } catch (e) { console.log(e) }
 }
@@ -218,47 +218,33 @@ function handleSearchEvent()
     //click button to open dialog
     $("#search-button").click(function()
     {
-        if (appObject.listArray.length > 0)
-        {
-            //show search dialog
-            $("#search-dialog").css({
-                display:"flex",
-                opacity:1,
-                bottom:"80px"
-            });
-            toggleMoreOptionsState(false);
-        }
+
+        $("#search-text").toggle();
+        $("#search-text").val("");
+        toggleMoreOptionsState(false);
     });
 
-    //close dialog
-    $("#search-dialog .close-button").click(function(){
-        //back to normal positions
-        $("#search-dialog").css({
-            display:"none"
-        });
-
-        //load last selected list
-        appObject.loadList(appObject.selectedListIndex);
-    });
-    
 
     //show results
-    document.querySelector("#search-text").addEventListener("input",function(){
-
+    document.querySelector("#search-text").addEventListener("input",function()
+    {
         //search as when type
         let text=document.querySelector("#search-text").value.trim();
-        let searchResultAray=appObject.getSearchResults(text);
-        //load search
-        loadSearchResults(searchResultAray);
+        if(text.length>0)
+        {
+            let searchResultAray=appObject.getSearchResults(text);
+            //load search
+            loadSearchResults(searchResultAray);
+        }
     });
 }
 
 function loadSearchResults(items)
 {
-    console.log(items);
     $("#selectedList").html("Search Results...");
+    document.querySelector("#back-button").style.display="block";
+    
     let parent=document.querySelector("#tasks-container");
-
     let html="Sorry no results found!!!";
     if(items.length>0)
     {
@@ -274,4 +260,12 @@ function loadSearchResults(items)
 
     }
     parent.innerHTML=html;
+}
+
+function handleBackButton()
+{
+    document.querySelector("#back-button").addEventListener("click",function()
+    {
+        appObject.loadListsInViewPanel();
+    });
 }
