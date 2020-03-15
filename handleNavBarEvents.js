@@ -16,6 +16,7 @@ addEventListeners = () => {
 
     //
     handleScrollShadow();
+
 }
 
 
@@ -268,4 +269,10 @@ function handleBackButton()
     {
         appObject.loadListsInViewPanel();
     });
+}
+
+
+function handleAlphabetSort()
+{
+    console.log(event.target.innerHTML);
 }

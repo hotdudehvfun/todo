@@ -8,43 +8,21 @@ document.addEventListener('DOMContentLoaded', function ()
 
 
 getHtmlContentForList = (list, index) => {
+
   let html = "";
-  if (list != null && list != undefined) {
+  if (list != null && list != undefined)
+  {
     html += `<div class="list-panel-item" onclick="handleLoadListevent(${index})">`;
-
-
     html+=`<div style='display:flex;justify-content: space-between;'>`;
-
     if (index == appObject.selectedListIndex)
       html += `<article class="selected">${list.title}</article>`;
     else
       html += `<article>${list.title}</article>`;
 
-    html += `<span class=list-sub-text>${timeSince(list.dateCreated)}</span>`;
+      html += `<span class=list-sub-text>${timeSince(list.dateCreated)}</span>`;
     html+=`</div>`;
     html += `<list-progress style="background-size:${List.getListProgress(list)}% 100%"></list-progress>`;
     html += `<span class=list-sub-text>${List.getProgressText('/', list)} tasks done</span>`;
-    
-    //get today and tommorrow upcoming tasks
-    //let upComingTasks = List.getUpcomingTasks(list, List.PENDING);
-    //here i is index and days diff
-    
-    /* 
-    upComingTasks.forEach(function (array, key) {
-      html += `<div class="list-upcoming-tasks-headline">${key}</div>`;
-      html += "<div>";
-      array.forEach(function (item) {
-        if (!item.task.isTaskCompleted) {
-          html += `<div class="upcoming-task-overview">`;
-          html += `<i class="material-icons">${item.task.taskIcon}</i>`;
-          html += `<span>${item.task.title}</span>`;
-          html += `</div>`;
-        }
-      });
-      html += "</div>";
-    });
-    */
-
     html += `</div>`;
   }
   return html;

@@ -170,7 +170,7 @@ togglePanelState = (id, state, trigger, whatToDO) => {
         trigger.setAttribute("class", "nav-bar-item selected")
         $(id).css(
             {
-                bottom: "80px",
+                bottom: "65px",
                 opacity: 1
             });
         

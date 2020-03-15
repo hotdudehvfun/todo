@@ -263,16 +263,30 @@ class App {
 
   loadListsInViewPanel = () =>
   {
-    if (this.listArray.length > 0) {
+    if (this.listArray.length > 0)
+    {
       let container = document.querySelector("#tasks-container");
       let html = "";
       let tempIndex = 0;
+
+      let bucket=[];
+      this.listArray.sort(function(a,b)
+      {
+        return a.title.localeCompare(b.title);
+      });
       this.listArray.forEach(function (list)
       {
         // console.log(ele);
+        let firstLetter=list.title.substr(0,1).toLocaleUpperCase();
+        if(bucket.indexOf(firstLetter)==-1)
+        {
+          bucket.push(firstLetter);
+          html+=`<div class=alphabet-sort onclick=handleAlphabetSort()>${firstLetter}</div>`;
+        }
         html += getHtmlContentForList(list, tempIndex);
         tempIndex++;
       });
+
 
       document.querySelector("#selectedList").innerHTML="Lists";
       document.querySelector("#list-age").innerHTML=this.listArray.length+" lists";

@@ -163,3 +163,25 @@ function handleScrollShadow(){
   })
 
 }
+
+
+function sortList(listArray)
+{
+  let bucket=[];
+  
+  listArray.forEach(function(list)
+  {
+    let firstLetter=list.title.substr(0,1).toLocaleUpperCase();
+    bucket.push(
+      {
+      "list":list,
+      "key":firstLetter
+    });
+  });
+
+  bucket.sort(function(a,b)
+  {
+    return a.key.localeCompare(b.key)
+  });
+  return bucket;
+}
