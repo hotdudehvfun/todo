@@ -5,7 +5,7 @@ newListPanelEvents = () => {
     //open
     $("#open-add-new-list-panel").click(function ()
     {
-        console.log("clicked on button");
+        console.log("clicked on butnew-task-cofffffffn");
         $(this).data('state', !$(this).data('state'));
         togglePanelState(id, $(this).data('state'), this, () => {
             
