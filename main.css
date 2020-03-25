@@ -151,8 +151,7 @@ input:focus {
   flex-direction: row;
   justify-content: space-evenly;
   background: white;
-  padding-top: 12px;
-  padding-bottom: 14px;
+  padding: 4px 0px 2px 0px;
   z-index: 999;
   border-top: 1px solid #e1e1e1;
 }

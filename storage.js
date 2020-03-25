@@ -243,8 +243,10 @@ class App {
         }else
         {
           container.innerHTML = html;
-         
           this.updateListProperties(list);
+
+
+          
         }
       }
     }else

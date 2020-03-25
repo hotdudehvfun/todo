@@ -143,6 +143,8 @@ toggleMoreOptionsState = (state) => {
 
         document.querySelector("#open-more-panel").setAttribute("class", "nav-bar-item selected");
         document.querySelector("#block-screen").setAttribute("class", "");
+        //get size storage
+        getStorageSize();
     }
 
     close = () => {
@@ -170,7 +172,7 @@ togglePanelState = (id, state, trigger, whatToDO) => {
         trigger.setAttribute("class", "nav-bar-item selected")
         $(id).css(
             {
-                bottom: "65px",
+                bottom: "48px",
                 opacity: 1
             });
         

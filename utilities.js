@@ -1,10 +1,10 @@
 
-let dialogStates=
+let dialogStates =
 {
-  "moreOptions":false,
-  "createList":false,
-  "addTask":false,
-  "viewLists":false
+  "moreOptions": false,
+  "createList": false,
+  "addTask": false,
+  "viewLists": false
 }
 
 
@@ -36,9 +36,8 @@ timeSince = (date) => {
 }
 
 
-timeToGo = (date) =>
-{
-  if(date==Task.NOT_SCHEDULED)
+timeToGo = (date) => {
+  if (date == Task.NOT_SCHEDULED)
     return "Normal Tasks";
 
   let minute = 60;
@@ -49,12 +48,10 @@ timeToGo = (date) =>
   let suffix = ' to go ';
   let elapsed = Math.floor((date - Date.now()) / 1000);
 
-  if(elapsed<0)
-  {
-    return "Past tasks"    
+  if (elapsed < 0) {
+    return "Past tasks"
   }
-  if (elapsed < minute && elapsed>0)
-  {
+  if (elapsed < minute && elapsed > 0) {
     return 'in few moments';
   }
 
@@ -109,7 +106,7 @@ getRandomPlaceHolderForNewTask = () => {
 
 
 showToast = (msg) => {
-  
+
   document.querySelector(".toast").innerHTML = msg.trim();
   $(".toast").css("z-index", 1000);
   let durationToShow = 500;
@@ -143,45 +140,57 @@ showToast = (msg) => {
 }
 
 
-parseBool=(str)=>
-{
-  return str=="true";
+parseBool = (str) => {
+  return str == "true";
 }
 
 
-function handleScrollShadow(){
+function handleScrollShadow() {
 
-  document.querySelector("#tasks-container").addEventListener("scroll",function(e)
-  {
-    if(this.scrollTop>0)
-    {
-      document.querySelector("#selected-list-info").style.boxShadow="0px 1px 4px #b8b8b8";
-    }else if(this.scrollTop==0)
-    {
-      document.querySelector("#selected-list-info").style.boxShadow="0px 0px gray";
+  document.querySelector("#tasks-container").addEventListener("scroll", function (e) {
+    if (this.scrollTop > 0) {
+      document.querySelector("#selected-list-info").style.boxShadow = "0px 1px 4px #b8b8b8";
+    } else if (this.scrollTop == 0) {
+      document.querySelector("#selected-list-info").style.boxShadow = "0px 0px gray";
     }
   })
 
 }
 
 
-function sortList(listArray)
-{
-  let bucket=[];
-  
-  listArray.forEach(function(list)
-  {
-    let firstLetter=list.title.substr(0,1).toLocaleUpperCase();
+function sortList(listArray) {
+  let bucket = [];
+
+  listArray.forEach(function (list) {
+    let firstLetter = list.title.substr(0, 1).toLocaleUpperCase();
     bucket.push(
       {
-      "list":list,
-      "key":firstLetter
-    });
+        "list": list,
+        "key": firstLetter
+      });
   });
 
-  bucket.sort(function(a,b)
-  {
+  bucket.sort(function (a, b) {
     return a.key.localeCompare(b.key)
   });
   return bucket;
+}
+
+
+function getStorageSize() {
+
+  var _lsTotal = 0, _xLen, _x;
+  for (_x in localStorage) {
+
+    if (!localStorage.hasOwnProperty(_x)) {
+      continue;
+    }
+    _xLen = ((localStorage[_x].length + _x.length) * 2);
+    _lsTotal += _xLen;
+    //console.log(_x.substr(0, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB")
+  };
+
+  //console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
+  $("#total_size").html("Total Size: " + (_lsTotal / 1024).toFixed(2) + " KB");
+  return (_lsTotal / 1024).toFixed(2) + " KB";
 }

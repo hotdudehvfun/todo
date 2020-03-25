@@ -11,11 +11,8 @@ addEventListeners = () => {
     handleDeleteList();
     handleSearchEvent();
     handleBackButton();
-
-
-    //
     handleScrollShadow();
-
+    
 }
 
 
