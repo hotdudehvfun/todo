@@ -9,7 +9,6 @@ addEventListeners = () => {
     handleRemoveCompletedTasks();
     handleRemoveAllTasks();
     handleDeleteList();
-    handlePastEvent();
     handleSearchEvent();
     handleBackButton();
 
@@ -197,19 +196,6 @@ handleLoadListevent = (index) => {
     } catch (e) { console.log(e) }
 }
 
-handlePastEvent=()=>{
-    document.querySelector("#new-task-content-1").addEventListener("paste",function(e)
-    {
-        //e.preventDefault();
-        console.log(e);
-        
-        setTimeout(function(){
-            document.querySelector("#new-task-content-1").innerHTML=document.querySelector("#new-task-content-1").innerText.trim();
-        },1);
-    });
-
-}
-
 
 
 
@@ -219,8 +205,8 @@ function handleSearchEvent()
     //click button to open dialog
     $("#search-button").click(function()
     {
-
         $("#search-text").toggle();
+        $("#search-text").focus();
         $("#search-text").val("");
         toggleMoreOptionsState(false);
     });
@@ -256,6 +242,7 @@ function loadSearchResults(items)
             html += `onClick="handleClickOnTask(this)">`;
             html += `<i class="material-icons">${element.taskIcon}</i>`;
             html += `<span>${element.title.trim()}</span> `;
+           
             html += `</div>`;
         });
 
