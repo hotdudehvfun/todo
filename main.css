@@ -213,7 +213,7 @@ input:focus {
 
 
 .list-panel-item {
-  margin: 6px 15px;
+  margin: 4px 8px;
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
@@ -270,17 +270,18 @@ input:focus {
 }
 
 .task {
-  background-color: #66339926;
-  padding: 20px 10px;
+  /* background-color: #66339926; */
+  padding: 10px 0px;
   display: flex;
   word-break: break-word;
   align-items: center;
   align-self: center;
   transition: 0.5s all;
   font-size: 120%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   width: 90%;
-  margin: 5px 0px;
+  /* margin: 5px 0px; */
+  border-bottom: 1px solid #d0d0d0;
 }
 
 .task .dashed {
@@ -300,6 +301,7 @@ input:focus {
 {
   margin-left: 10px;
   text-transform: capitalize;
+  width: 100%;
 }
 .task.completed>span
 {
@@ -314,6 +316,7 @@ input:focus {
 
   color: #ff5d94;
 }
+
 
 @keyframes blinking {
   
@@ -331,11 +334,16 @@ input:focus {
   }
 }
 
+search_list_name {
+    text-transform: capitalize;
+    text-align: right;
+    width: max-content;
+    font-size: 80%;
+}
 
 
 
-
-.completed {box-shadow: none;background: #ffffff;color: #333;}
+.completed {box-shadow: none;color: #333;}
 
 .completed>i {
   color: gray;
