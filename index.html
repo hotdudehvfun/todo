@@ -61,6 +61,7 @@
                                 <i class="material-icons"></i>
                                 <article class="selected" ng-bind="value.title"></article>
                             </div>
+
                             <span class="list-sub-text" ng-bind="(value.taskArray.length) + ' items'"></span>
                         </div>
                     </div>
@@ -71,7 +72,7 @@
                     <div ng-repeat="(key,value) in taskArray">
                         <div id="" class="task" ng-click="">
                             <i class="material-icons" ng-bind="value.taskIcon"></i>
-                                <span ng-bind="(value.title)"></span>
+                                <span ng-bind="value.title | htmlToPlaintext"></span>
                         </div>
                     </div>
                     <!-- empty state -->
