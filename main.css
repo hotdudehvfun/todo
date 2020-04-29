@@ -1,24 +1,9 @@
-@media (min-width: 320px)
+/* apply when less than 375px */
+@media (max-width: 375px)
 {
   body
   {
     font-size: 14px;
-  }
-  .material-icons
-  {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 375px)
-{
-  body
-  {
-    font-size: 14px;
-  }
-  .material-icons
-  {
-    font-size: 18px;
   }
 }
 
@@ -154,6 +139,13 @@ input:focus {
   padding: 4px 0px 2px 0px;
   z-index: 999;
   border-top: 1px solid #e1e1e1;
+  font-size: 100%;
+}
+
+.nav-bar-item>i
+{
+  font-size:19px;
+  transition: 0.5s all;
 }
 
 .nav-bar-options .nav-bar-item {
@@ -212,15 +204,31 @@ input:focus {
 
 
 .list-panel-item {
-  margin: 4px 8px;
+  margin: 2px 8px;
   width: -webkit-fill-available;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-self: baseline;
-  padding: 10px;
-  background: #cacaca26;
+  padding: 5px 10px;
+  border-bottom: 1px solid #dadada;
 }
 
+.list-panel-item i {
+  background: #0000000f;
+  font-size: 20px;
+  border-radius: 100px;
+  color: #673AB7;
+  padding: 5px;
+  text-align: center;
+  align-self: center;
+}
+
+.list-panel-item-title
+{
+  display: flex;
+  margin-top: 10px;
+}
 
 
 
@@ -269,7 +277,6 @@ input:focus {
 }
 
 .task {
-  /* background-color: #66339926; */
   padding: 10px 0px;
   display: flex;
   word-break: break-word;
@@ -277,9 +284,7 @@ input:focus {
   align-self: center;
   transition: 0.5s all;
   font-size: 120%;
-  /* border-radius: 10px; */
-  width: 90%;
-  /* margin: 5px 0px; */
+  margin: 5px 10px;
   border-bottom: 1px solid #d0d0d0;
 }
 
@@ -508,7 +513,6 @@ search_list_name {
 
 .nav-bar-panel {
   bottom: 60px;
-  opacity: 0;
   display: none;
   width: 100%;
   background: white;
@@ -516,9 +520,9 @@ search_list_name {
   border-radius: 5px;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 2px 6px 2px rgba(60, 64, 67, 0.149);
   flex-direction: column;
-  padding: 8px;
+  padding: 4px;
   position: absolute;
-  z-index: 998;
+  z-index: 999;
 }
 
 
@@ -542,6 +546,7 @@ search_list_name {
   background: #44409b1f;
   overflow-y: auto;
   max-height: 350px;
+  border: 0px;
 }
 
 
@@ -561,9 +566,8 @@ search_list_name {
 .add-task-options {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 5px;
-  margin-bottom: 10px;
 }
 
 .add-task-options .selectedOption {
@@ -681,7 +685,7 @@ search_list_name {
   margin: 5px 0px;
   align-items: center;
   position: absolute;
-  bottom: 0px;
+  bottom: -50px;
   transition: 0.8s all cubic-bezier(0.63, 0.21, 0.32, 1.04);
   right: 10px;
   z-index: 998;
@@ -721,6 +725,7 @@ search_list_name {
 .list-panel-item>div>article {
   text-transform: capitalize;
   font-size: 150%;
+  margin-left: 10px;
 }
 
 .list-panel-item>article.selected {
@@ -898,16 +903,15 @@ div#close-task-more-options {
   color: rebeccapurple;
 }
 
-#search-text
+#search-box
 {
   padding: 12px 10px;
   color: gray;
   border-radius: 5px;
   background: #44409b1f;
   overflow-y: auto;
-  width: 100%;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  width: -webkit-fill-available;
+  margin: 5px;
 }
 .alphabet-sort {
   padding: 5px 10px;
@@ -916,4 +920,56 @@ div#close-task-more-options {
   margin: 8px;
   border-radius: 3px;
   align-self: flex-start;
+}
+
+
+#back-button
+{
+  transform: scale(1.5) translate(0px, 1px); padding: 0px 10px;
+}
+
+input.add-new-list-title {
+  border-bottom: 1px solid gray;
+  border-radius: 0px;
+}
+
+
+.add-task-list-title {
+  text-transform: capitalize;
+  border-radius: 2px;
+  background: #3d3a8c26;
+  align-self: baseline;
+  padding: 5px 20px;
+  font-size: 120%;
+}
+
+
+.my-button {
+  text-transform: capitalize;
+  border-radius: 5px;
+  align-self: baseline;
+  padding: 5px 15px;
+  font-weight: bold;
+  color: mediumslateblue;
+}
+
+
+.fab-button {
+  display: inline;
+  position: absolute;
+  background: white;
+  border-radius: 100px;
+  padding: 7px;
+  right: 15px;
+  transform: rotate(45deg);
+  bottom: 100px;
+  color: #44409b;
+  box-shadow: 1px 1px 4px #bbbbbb;
+  transition: 0.5s all;
+}
+
+.visible
+{
+  bottom: 4px;
+  display: flex;
 }

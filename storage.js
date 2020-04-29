@@ -30,7 +30,8 @@ class App {
     //everything starts from here
     let read = this.readData();
     // console.log(read);
-    if (-1 == read) {
+    if (-1 == read)
+    {
       //first time app load default values
       this.setupDemoList();
       this.selectedListIndex = 0;
@@ -44,10 +45,9 @@ class App {
       else
         this.selectedListIndex = localStorage.selectedListIndex;
 
-      this.loadList(this.selectedListIndex);
+      //this.loadList(this.selectedListIndex);
     }
     //also load rest of the lists in view all lists panel
-    this.loadListsInViewPanel();
   }
 
 
@@ -174,7 +174,8 @@ class App {
 
 
   //load tasks of a list
-  loadList = (index) => {
+  loadList = (index) => 
+  {
     if (index >= 0 && index < this.listArray.length)
     {
       this.selectedListIndex = index;
@@ -263,42 +264,6 @@ class App {
     document.querySelector("#list-progress-2").innerHTML = List.getCount(List.PRIORITY, list)+" favs";
   }
 
-  loadListsInViewPanel = () =>
-  {
-    if (this.listArray.length > 0)
-    {
-      let container = document.querySelector("#tasks-container");
-      let html = "";
-      let tempIndex = 0;
-
-      let bucket=[];
-      this.listArray.sort(function(a,b)
-      {
-        return a.title.localeCompare(b.title);
-      });
-      this.listArray.forEach(function (list)
-      {
-        // console.log(ele);
-        let firstLetter=list.title.substr(0,1).toLocaleUpperCase();
-        if(bucket.indexOf(firstLetter)==-1)
-        {
-          bucket.push(firstLetter);
-          html+=`<div class=alphabet-sort onclick=handleAlphabetSort()>${firstLetter}</div>`;
-        }
-        html += getHtmlContentForList(list, tempIndex);
-        tempIndex++;
-      });
-
-
-      document.querySelector("#selectedList").innerHTML="Lists";
-      document.querySelector("#list-age").innerHTML=this.listArray.length+" lists";
-      document.querySelector("#list-progress-1").innerHTML = "";
-      document.querySelector("#list-progress-2").innerHTML = "";
-      document.querySelector("#back-button").style.display="none";
-      document.querySelector("#search-text").style.display="none";
-      container.innerHTML = html;
-    }
-  }
 
   updateTaskState = (id, state, width, heigth) =>
   {
@@ -535,34 +500,17 @@ class Task {
 class Icons {
 
   //get task to according to hint
-  static getTaskIcon = (element) => {
-    
-    if (element.isPriorityTasked)
-      return "favorite";
-
-      //search accordint to task
-    // let iconFound = "";
-    // iconDb.forEach(function (item) {
-    //   item.split("#")[1].split(" ").forEach(function (subitem) {
-    //     if (element.title.toLowerCase().search(subitem.toLowerCase()) != -1) {
-    //       // console.log("returning");
-    //       iconFound = item.split("#")[0];
-    //     }
-    //   });
-    // });
-
-    // if (iconFound.length > 0)
-    //   return iconFound;
-    return icon_database[Math.floor(Math.random() * icon_database.length)];
+  static getTaskIcon = () =>
+  {
+      return icon_database[Math.floor(Math.random() * icon_database.length)];
   }
+  
 }
 
 //create default list and a first task
 var appObject = new App();
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function ()
+{
   appObject.init();
+
 });
-
-
-
-

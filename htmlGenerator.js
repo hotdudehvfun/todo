@@ -7,26 +7,7 @@ document.addEventListener('DOMContentLoaded', function ()
 
 
 
-getHtmlContentForList = (list, index) => {
 
-  let html = "";
-  if (list != null && list != undefined)
-  {
-    html += `<div class="list-panel-item" onclick="handleLoadListevent(${index})">`;
-    html+=`<div style='display:flex;justify-content: space-between;'>`;
-    if (index == appObject.selectedListIndex)
-      html += `<article class="selected">${list.title}</article>`;
-    else
-      html += `<article>${list.title}</article>`;
-
-      html += `<span class=list-sub-text>${timeSince(list.dateCreated)}</span>`;
-    html+=`</div>`;
-    html += `<list-progress style="background-size:${List.getListProgress(list)}% 100%"></list-progress>`;
-    html += `<span class=list-sub-text>${List.getProgressText('/', list)} tasks done</span>`;
-    html += `</div>`;
-  }
-  return html;
-}
 
 handleNoListState=()=>
 {
@@ -49,8 +30,8 @@ handleNoListState=()=>
 handleNoTasksState=()=>
 {
   let html="";
-  html+=SVGS.DESERT;
-  html+="<no-list-msg>You have no tasks in this list!</no-list-msg>";
-  html+="<no-list-msg>Add tasks</no-list-msg>";
-  document.querySelector("#tasks-container").innerHTML=html;
+
+  html+="<h1>You have no tasks in this list!</h1>";
+  console.log(html);
+  return html;
 }
