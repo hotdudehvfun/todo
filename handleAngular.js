@@ -1,4 +1,5 @@
 let app = angular.module("myapp", ['ngSanitize']);
+console.log("version:2")
 app.filter('htmlToPlaintext', function()
 {
     return function(text)
