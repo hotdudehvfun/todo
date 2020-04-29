@@ -1,11 +1,9 @@
 let app = angular.module("myapp", ['ngSanitize']);
-console.log("version:2")
-app.filter('htmlToPlaintext', function()
-{
-    return function(text)
-    {
-        return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
-    };
+console.log("version:3")
+app.filter('htmlToPlaintext', function () {
+  return function (text) {
+    return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+  };
 });
 app.controller('myctrl', function ($scope, $sce) {
 
@@ -38,58 +36,51 @@ app.controller('myctrl', function ($scope, $sce) {
     $scope.pageTitle = $scope.defaultPageTitle;
   }
 
-  $scope.handleCreateList = function ()
-  {
-    if($scope.newListName.length>1)
-    {
+  $scope.handleCreateList = function () {
+    if ($scope.newListName.length > 1) {
       let newList = new List($scope.newListName);
-      $scope.selectedListIndex=$scope.listArray.push(newList) - 1;
+      $scope.selectedListIndex = $scope.listArray.push(newList) - 1;
       showToast(`Notebook create:  ${newList.title}`);
-      document.querySelector("#add-new-task-with-new-list").style.display="none";
-      document.querySelector("#block-screen").setAttribute("class","hide-block-screen");
+      document.querySelector("#add-new-task-with-new-list").style.display = "none";
+      document.querySelector("#block-screen").setAttribute("class", "hide-block-screen");
       $scope.saveData();
     }
   }
 
 
-  $scope.handleSaveTask = function ()
-  {
+  $scope.handleSaveTask = function () {
 
-    if($scope.newTaskContent.length>1 && $scope.selectedListIndex!=undefined)
-    {
+    if ($scope.newTaskContent.length > 1 && $scope.selectedListIndex != undefined) {
       let newTask = new Task($scope.newTaskContent);
       $scope.listArray[$scope.selectedListIndex].taskArray.push(newTask);
       showToast(`Note added`);
-      document.querySelector("#add-task-panel-with-selected-list").style.display="none";
-      document.querySelector("#block-screen").setAttribute("class","hide-block-screen");
+      document.querySelector("#add-task-panel-with-selected-list").style.display = "none";
+      document.querySelector("#block-screen").setAttribute("class", "hide-block-screen");
       $scope.saveData();
     }
   }
 
 
-  $scope.saveData=function()
-  {
-      //save data about app in local
-      let json = angular.toJson($scope.listArray);
-      localStorage.appData = json;
-      //save selectedListIndex
-      localStorage.selectedListIndex = $scope.selectedListIndex;
+  $scope.saveData = function () {
+    //save data about app in local
+    let json = angular.toJson($scope.listArray);
+    localStorage.appData = json;
+    //save selectedListIndex
+    localStorage.selectedListIndex = $scope.selectedListIndex;
   }
 
-  $scope.emptyList=handleNoTasksState();
+  $scope.emptyList = handleNoTasksState();
 
 
-  $scope.handleDeleteList=function()
-  {
-    if ($scope.selectedListIndex >= 0)
-    {
-        //close panel
-        toggleMoreOptionsState(false);
-        //show message removed
-        showToast("List Deleted!");
-        let removedList=$scope.listArray.splice($scope.selectedListIndex,1);
-        $scope.saveData();
-        $scope.handleBackButton();
+  $scope.handleDeleteList = function () {
+    if ($scope.selectedListIndex >= 0) {
+      //close panel
+      toggleMoreOptionsState(false);
+      //show message removed
+      showToast("List Deleted!");
+      let removedList = $scope.listArray.splice($scope.selectedListIndex, 1);
+      $scope.saveData();
+      $scope.handleBackButton();
 
     }
   }
@@ -104,7 +95,7 @@ app.controller('myctrl', function ($scope, $sce) {
 function readData() {
   try {
     let appData = localStorage.appData;
-    if (appData == undefined){
+    if (appData == undefined) {
       return -1;
     } else {
       //load

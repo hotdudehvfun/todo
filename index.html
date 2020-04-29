@@ -72,7 +72,7 @@
                     <div ng-repeat="(key,value) in taskArray">
                         <div id="" class="task" ng-click="">
                             <i class="material-icons" ng-bind="value.taskIcon"></i>
-                                <span ng-bind="value.title | htmlToPlaintext"></span>
+                                <span ng-bind-html="value.title"></span>
                         </div>
                     </div>
                     <!-- empty state -->
