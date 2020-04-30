@@ -42,7 +42,7 @@
                 <!-- search results -->
                 <Div id="search-results" style="display: block;">
                     <div ng-repeat="(key,value) in listArray ">
-                        <div ng-repeat="(k,v) in value.taskArray | filter: search" ng-if="search.length>0">
+                        <div ng-repeat="(k,v) in value.taskArray | filter: search | limitTo: 20" ng-if="search.length>0">
                             <div id="" class="task" ng-click="">
                                 <i class="material-icons" ng-bind="v.taskIcon"></i>
                                 <span ng-bind-html="(v.title)"></span>
