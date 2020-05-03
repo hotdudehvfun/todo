@@ -1,20 +1,19 @@
 <html>
 <head>
-    <title>TODO things</title>
+    <title>NoteBook</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="storage.js"></script>
-
     <link rel="icon" href="icon.png" />
-    <link href="material.icon.css" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="scripts/storage.js"></script>
+
+    <link href="styles/material.icon.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+
 </head>
 
 <body ng-app="myapp" ng-controller='myctrl'>
-
     <div class="main-container">
         <div class="app-container">
 
@@ -34,6 +33,7 @@
                 </div>
 
                 <input id="search-box"  ng-model="search" ng-attr-placeholder="Search..."/>
+                <textarea id="back"></textarea>
 
             </div>
             <!--contains tasks-->
@@ -42,10 +42,10 @@
                 <!-- search results -->
                 <Div id="search-results" style="display: block;">
                     <div ng-repeat="(key,value) in listArray ">
-                        <div ng-repeat="(k,v) in value.taskArray | filter: search | limitTo: 20" ng-if="search.length>0">
+                        <div ng-repeat="(k,v) in value.taskArray | filter: search | limitTo: 2" ng-if="search.length>0">
                             <div id="" class="task" ng-click="">
                                 <i class="material-icons" ng-bind="v.taskIcon"></i>
-                                <span ng-bind-html="(v.title)"></span>
+                                <span ng-bind-html="v.title | sanitize"></span>
 
                             </div>
                         </div>
@@ -70,13 +70,18 @@
                 <!-- content of lists -->
                 <Div id="view-list-items" style="display: none;">
                     <div ng-repeat="(key,value) in taskArray">
-                        <div id="" class="task" ng-click="">
+                        <div class="task" ng-click="handleClickOnTask($event);" data-i="{{key}}">
                             <i class="material-icons" ng-bind="value.taskIcon"></i>
-                                <span ng-bind-html="value.title"></span>
+                                <span ng-bind-html="value.title | sanitize"></span>
                         </div>
                     </div>
+
                     <!-- empty state -->
-                    <div style="text-align: center; font-family: sans-serif;" ng-hide="taskArray.length" ng-bind-html="emptyList"></div>
+                    <div style="background-color: white;text-align: center; font-family: sans-serif;" ng-hide="taskArray.length">
+                        <h1>Empty NoteBook</h1>
+                        <img src="styles/emptystate.png" style="    width: 60%;     max-width: 250px;">
+                    <div id="openAddNoteFromEmptyState" class="my-button">Add notes</div>
+                    </div>
                 </Div>
 
             </div>
@@ -84,10 +89,15 @@
         </div>
 
 
+
+
+
         <!-- create list fab button -->
         <i id="open-add-new-list-panel" class="material-icons fab-button" ng-hide="defaultPageTitle!=pageTitle">close</i>
+        
         <!-- hide add task button if list is not opened -->
         <i style="bottom: 70px;" id="open-add-new-task-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">book</i>
+        
         <!-- hide add task button if list is not opened -->
         <i style="bottom: 15px; z-index: 999;" id="open-more-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">settings</i>
         
@@ -96,11 +106,8 @@
 
     <!-- add new task -->
     <div id="add-task-panel-with-selected-list" class="nav-bar-panel" data-dateId="#datetimepicker1">
-
         <div class="add-task-list-title" ng-attr-placeholder="List name...">{{selectedListName}}</div>
-        <textarea 
-        ng-model="newTaskContent" 
-        id="new-task-content-1" class="new-task-content" ng-placeholder="Remind me to call..."></textarea>
+        <div contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
         <div class="add-task-options">
             <div class="my-button close-button">Cancel</div>
             <div ng-click="handleSaveTask();" id="add-new-task-ok" class="my-button">Add</div>
@@ -170,9 +177,9 @@
 
     <!-- taskMoreOptiosContainer -->
     <div class="taskMoreOptionsConatiner hide-task-more-options">
-        <div id="taskChangeStatus" onclick="taskChangeStatus();">Task Complete</div>
-        <div id="taskChangePriority" onclick="taskChangePriority();">Set Priority</div>
-        <div id="taskRemove" onclick="taskRemove();">Remove Task </div>
+        <div id="taskRemove" ng-click="deleteTask();">Delete Note </div>
+        <div id="taskRemove" ng-click="moveTask();">Move Note </div>
+        <div id="taskRemove" ng-click="mergeTask();">Merge With another Note </div>
         <div id="close-task-more-options" onclick="closeTaskMoreOptions();">Close X</div>
     </div>
 
@@ -180,14 +187,14 @@
 
 
 
-    <script type="text/javascript" src="handleAngular.js"></script>
-    <script type="text/javascript" src="htmlGenerator.js"></script>
-    <script type="text/javascript" src="handleSingleTaskEvents.js"></script>
-    <script type="text/javascript" src="handleOpenCloseEventOfNavBarPanels.js"></script>
-    <script type="text/javascript" src="handleNavBarEvents.js"></script>
-    <script type="text/javascript" src="utilities.js"></script>
-    <script type="text/javascript" src="svgAnimation.js"></script>
-    <script type="text/javascript" src="icon_database.js"></script>
+    <script type="text/javascript" src="scripts/handleAngular.js"></script>
+    <script type="text/javascript" src="scripts/htmlGenerator.js"></script>
+    <script type="text/javascript" src="scripts/handleSingleTaskEvents.js"></script>
+    <script type="text/javascript" src="scripts/handleOpenCloseEventOfNavBarPanels.js"></script>
+    <script type="text/javascript" src="scripts/handleNavBarEvents.js"></script>
+    <script type="text/javascript" src="scripts/utilities.js"></script>
+    <script type="text/javascript" src="scripts/svgAnimation.js"></script>
+    <script type="text/javascript" src="scripts/icon_database.js"></script>
 
 
 
