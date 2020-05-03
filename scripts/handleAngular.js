@@ -132,7 +132,7 @@ function readData()
     {
       //load
       let json = JSON.parse(appData);
-      document.querySelector("#back").value=appData;
+      // document.querySelector("#back").value=appData;
       return json;
     }
   } catch (error)
