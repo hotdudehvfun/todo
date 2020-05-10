@@ -18,10 +18,10 @@
         <div class="app-container">
 
             <!-- current list selected -->
-            <div id="selected-list-info">
+            <div id="selected-list-info" style="background-color: var(--bg-color);">
                 <!-- name and back button -->
                 <div style="display: flex;flex-direction: row;align-items: center;">
-                    <i id="back-button" class="material-icons" ng-click="handleBackButton();">arrow_back</i>
+                    <i id="back-button" class="material-icons" ng-click="handleBackButton();" ng-hide="defaultPageTitle==pageTitle" ng-show="search.length>0">arrow_back</i>
                     <div class="list-with-title" id="selectedList" style="display: block;" ng-bind="pageTitle"></div>
                 </div>
 
@@ -32,7 +32,7 @@
                     <span class="list-sub-text" id="list-progress-2"></span>
                 </div>
 
-                <input id="search-box"  ng-model="search" ng-attr-placeholder="Search..."/>
+                <input id="search-box"  ng-model="search" ng-attr-placeholder="Search..." value=""/>
                 <!-- <textarea id="back"></textarea> -->
 
             </div>
@@ -40,9 +40,10 @@
             <div id="tasks-container">
 
                 <!-- search results -->
-                <Div id="search-results" style="display: block;">
+                <Div id="search-results" style="display: block;" ng-show="search.length>0">
+                    <div style="text-align: center;font-size: 165%;">Search Results</div>
                     <div ng-repeat="(key,value) in listArray ">
-                        <div ng-repeat="(k,v) in value.taskArray | filter: search | limitTo: 2" ng-if="search.length>0">
+                        <div ng-repeat="(k,v) in value.taskArray | filter: search | limitTo: 2">
                             <div id="" class="task" ng-click="">
                                 <i class="material-icons" ng-bind="v.taskIcon"></i>
                                 <span ng-bind-html="v.title | sanitize"></span>
@@ -53,7 +54,7 @@
                 </Div>
 
                 <!-- lists -->
-                <Div id="view-lists" style="display: block;">
+                <Div id="view-lists" style="display: block;" ng-hide="search.length>0">
                     <div ng-repeat="(key,value) in listArray">
 
                         <div class="list-panel-item" ng-click="loadList($index)">
@@ -68,8 +69,8 @@
                 </Div>
 
                 <!-- content of lists -->
-                <Div id="view-list-items" style="display: none;">
-                    <div ng-repeat="(key,value) in taskArray">
+                <Div id="view-list-items" style="display: none;" ng-hide="search.length>0">
+                    <div ng-repeat="(key,value) in taskArray" >
                         <div class="task" ng-click="handleClickOnTask($event);" data-i="{{key}}">
                             <i class="material-icons" ng-bind="value.taskIcon"></i>
                                 <span ng-bind-html="value.title | sanitize"></span>
@@ -96,7 +97,7 @@
         <i id="open-add-new-list-panel" class="material-icons fab-button" ng-hide="defaultPageTitle!=pageTitle">close</i>
         
         <!-- hide add task button if list is not opened -->
-        <i style="bottom: 70px;" id="open-add-new-task-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">book</i>
+        <i style="bottom: 80px;" id="open-add-new-task-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">book</i>
         
         <!-- hide add task button if list is not opened -->
         <i style="bottom: 15px; z-index: 999;" id="open-more-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">settings</i>
@@ -141,9 +142,12 @@
             <i class="material-icons">cloud</i>
         </div>
 
-        <div id="remove-completed-tasks-button" class="more-options-item" >
-            <span>Remove Completed Tasks</span>
-            <i class="material-icons">clear_all</i>
+        <div id="change-theme-button" class="more-options-item" >
+            <span>Switch Theme</span>
+            <label class="switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+              </label>
         </div>
 
         <div id="remove-all-tasks-button" class="more-options-item" >

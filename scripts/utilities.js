@@ -183,3 +183,15 @@ function getStorageSize() {
   $("#total_size").html("Total Size: " + (_lsTotal / 1024).toFixed(2) + " KB");
   return (_lsTotal / 1024).toFixed(2) + " KB";
 }
+
+const toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
+toggleSwitch.addEventListener('change', switchTheme, false);
+function switchTheme(e)
+{
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }    
+}

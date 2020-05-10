@@ -1,9 +1,23 @@
+:root {
+  --font-color: #222;
+  --bg-color: #fff;
+}
+
+
+[data-theme="dark"]
+{
+  --font-color: white;
+  --bg-color: #222;
+}
+
+
 /* apply when less than 375px */
 @media (max-width: 375px)
 {
   body
   {
     font-size: 14px;
+    
   }
 }
 
@@ -20,7 +34,9 @@ body {
   overflow: hidden;
   height: 100%;
   width: 100%;
-  /* min-width: 300px; */
+
+  background-color: var(--bg-color);
+  color: var(--font-color);
 }
 
 * {
@@ -69,12 +85,13 @@ body {
 }
 
 .list-with-title {
-  color: #0e0e0e;
-  margin-top: 5px;
-  padding-left: 5px;
-  font-size: 200%;
+background-color: var(--bg-color);
+  color:var(--font-color);
+  font-size: 160%;
   font-weight: bold;
   text-transform: capitalize;
+  text-align: center;
+  flex: 1;
 }
 
 .list-with-title:active {
@@ -204,15 +221,21 @@ input:focus {
 
 
 .list-panel-item {
-  margin: 2px 8px;
+
+background-color: var(--bg-color);
+  margin: 5px 2px;
   width: -webkit-fill-available;
   max-width: 500px;
   display: flex;
   flex-direction: column;
   align-self: baseline;
-  padding: 5px 10px;
-  border-bottom: 1px solid #dadada;
+  padding: 1px 10px;
+  border-bottom: 1px solid var(--bg-color);
+  border-left: 5px solid var(--bg-color);
+  border-radius: 5px;
+
 }
+
 
 .list-panel-item i {
   background: #0000000f;
@@ -274,6 +297,7 @@ input:focus {
   overflow-y: auto;
   height: 100%;
   width: 100%;
+  background-color: var(--bg-color);
 }
 
 .task {
@@ -285,7 +309,9 @@ input:focus {
   transition: 0.5s all;
   font-size: 120%;
   margin: 5px 10px;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: 1px solid var(--bg-color);
+  user-select: all;
+background-color: var(--bg-color);
 }
 
 .task .dashed {
@@ -306,6 +332,8 @@ input:focus {
   margin-left: 10px;
   text-transform: capitalize;
   width: 100%;
+  color: var(--font-color);
+
 }
 .task.completed>span
 {
@@ -748,7 +776,7 @@ search_list_name {
 
 .list-panel-item>div>article {
   text-transform: capitalize;
-  font-size: 150%;
+  font-size: 110%;
   margin-left: 10px;
 }
 
@@ -758,7 +786,7 @@ search_list_name {
 }
 
 .list-sub-text {
-  font-size: 90%;
+  font-size: 85%;
   margin-left: 8px;
   margin-top: 7px;
   color: gray;
@@ -930,9 +958,9 @@ div#close-task-more-options {
 #search-box
 {
   padding: 12px 10px;
-  color: gray;
+  color: var(--font-color);
   border-radius: 5px;
-  background: #44409b1f;
+  background:var(--bg-color);
   overflow-y: auto;
   width: -webkit-fill-available;
   margin: 5px;
@@ -949,7 +977,10 @@ div#close-task-more-options {
 
 #back-button
 {
-  transform: scale(1.5) translate(0px, 1px); padding: 0px 10px;
+  transform: scale(1.2) translate(0px, 1px);
+  padding: 0px 10px;
+  position: absolute;
+  color: var(--font-color);
 }
 
 input.add-new-list-title {
@@ -981,17 +1012,77 @@ input.add-new-list-title {
 .fab-button {
   display: inline;
   position: absolute;
-  background: white;
+  background:var(--bg-color);
   border-radius: 100px;
-  padding: 7px;
+  padding: 10px;
+  font-size: 200%;
   right: 15px;
   transform: rotate(45deg);
   bottom: 100px;
-  color: #44409b;
-  box-shadow: 1px 1px 4px #bbbbbb;
+  box-shadow: 1px 1px 4px var(--bg-color);
   transition: 0.5s all;
+  color: #3F51B5;
 }
 
 .rotate {
   transform: rotate(90deg);
+}
+
+
+
+
+
+/* slide button */
+
+.switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+.switch input {
+  display:none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: .4s;
+  width: 26px;
+}
+
+/* apply dark styles */
+
+input:checked + .slider 
+{
+  background-color: #66bb6a;
+  --background-color:#222;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
