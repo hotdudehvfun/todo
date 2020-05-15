@@ -1,6 +1,7 @@
 :root {
   --font-color: #222;
   --bg-color: #fff;
+  --border-color:#fff;
 }
 
 
@@ -544,10 +545,9 @@ search_list_name {
   display: none;
   width: 100%;
   background: white;
-  border: 1px solid whitesmoke;
+  border: 1px solid #d8d8d8;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 2px 6px 2px rgba(60, 64, 67, 0.149);
   flex-direction: column;
   padding: 10px 10px;
   position: absolute;
@@ -558,7 +558,7 @@ search_list_name {
 {
   bottom: 0px;
   display: flex;
-  animation:showPanel 0.5s;
+  animation: showPanel 0.2s;
 }
 @keyframes showPanel
 {
@@ -744,19 +744,16 @@ search_list_name {
 }
 
 .more-options-item>span {
-  background: #ffffff;
+  background: var(--bg-color);
   padding: 5px 20px;
   border-radius: 4px;
   margin-right: 10px;
-  box-shadow: 0px 2px 2px #80808082;
 }
 
 .more-options-item>i {
-  background: white;
-  color: #44409b;
+  background: var(--bg-color);
   padding: 8px;
   border-radius: 100px;
-  box-shadow: 0px 2px 2px #80808082;
 }
 
 #block-screen {
@@ -849,17 +846,10 @@ list-progress {
 }
 
 
-svg:not(:root) {
-  overflow: hidden;
-  width: 100%;
-  height: 60%;
-}
-
-#tasks-container>svg {}
 
 
 
-g.svg-cloud {
+.svg-cloud {
   animation: 3s move-cloud infinite;
 }
 
@@ -1036,9 +1026,9 @@ input.add-new-list-title {
 
 .switch {
   display: inline-block;
-  height: 34px;
+  height: 20px;
   position: relative;
-  width: 60px;
+  width: 100%;
 }
 
 .switch input {
@@ -1046,25 +1036,26 @@ input.add-new-list-title {
 }
 
 .slider {
-  background-color: #ccc;
+  background-color: #44409b;
   bottom: 0;
   cursor: pointer;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
-  transition: .4s;
+  transition: .4s cubic-bezier(0, 1.24, 0.58, 1);
 }
 
 .slider:before {
   background-color: #fff;
   bottom: 4px;
   content: "";
-  height: 26px;
+  height: 10px;
   left: 4px;
   position: absolute;
   transition: .4s;
-  width: 26px;
+  width: 10px;
+  bottom: 5px;
 }
 
 /* apply dark styles */

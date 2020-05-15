@@ -7,10 +7,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="scripts/storage.js"></script>
-
     <link href="styles/material.icon.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
-
 </head>
 
 <body ng-app="myapp" ng-controller='myctrl'>
@@ -80,7 +78,16 @@
                     <!-- empty state -->
                     <div style="background-color: white;text-align: center; font-family: sans-serif;" ng-hide="taskArray.length">
                         <h1>Empty NoteBook</h1>
-                        <img src="styles/emptystate.png" style="    width: 60%;     max-width: 250px;">
+                        <svg width="100%" height="273" viewBox="0 0 509 273" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="267.5" cy="130.5" r="125.5" fill="#C7C7C7"/>
+                            <rect x="174" y="72" width="113" height="30" rx="15" fill="black" fill-opacity="0.12"/>
+                            <rect x="258" y="115" width="113" height="30" rx="15" fill="black" fill-opacity="0.07"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M181.728 221C173.311 213.096 165.985 204.043 160 194.093C162.528 192.153 165.691 191 169.123 191H252.123C260.408 191 267.123 197.716 267.123 206C267.123 214.284 260.408 221 252.123 221H181.728Z" fill="black" fill-opacity="0.09"/>
+                            <path class="svg-cloud" fill-rule="evenodd" clip-rule="evenodd" d="M376.505 57.1955C374.967 53.6959 374.113 49.8274 374.113 45.7594C374.113 30.0504 386.847 17.3158 402.556 17.3158C407.562 17.3158 412.266 18.6088 416.351 20.879C420.991 11.4717 430.678 5 441.876 5C453.361 5 463.255 11.8061 467.747 21.6047C470.49 20.7238 473.415 20.2481 476.451 20.2481C492.16 20.2481 504.895 32.9828 504.895 48.6917C504.895 53.3513 503.774 57.7492 501.788 61.6306C506.19 65.2336 509 70.7097 509 76.8421C509 87.6926 500.204 96.4887 489.353 96.4887H372.647C361.796 96.4887 353 87.6926 353 76.8421C353 65.9916 361.796 57.1955 372.647 57.1955H376.505Z" fill="#DADADA"/>
+                            <path class="svg-cloud" fill-rule="evenodd" clip-rule="evenodd" d="M202.783 58.218C204.499 54.3147 205.451 49.9998 205.451 45.4624C205.451 27.9409 191.247 13.7368 173.726 13.7368C168.142 13.7368 162.896 15.179 158.339 17.7112C153.164 7.21838 142.359 0 129.869 0C117.059 0 106.023 7.59139 101.013 18.5206C97.9533 17.5381 94.6909 17.0075 91.3045 17.0075C73.783 17.0075 59.5789 31.2115 59.5789 48.7331C59.5789 53.9303 60.8286 58.8356 63.0439 63.1649C58.1338 67.1836 55 73.2916 55 80.1316C55 92.2341 64.811 102.045 76.9135 102.045H207.086C219.189 102.045 229 92.2341 229 80.1316C229 68.0291 219.189 58.218 207.086 58.218H202.783Z" fill="#DADADA"/>
+                            <path class="svg-cloud" fill-rule="evenodd" clip-rule="evenodd" d="M147.783 228.218C149.499 224.315 150.451 220 150.451 215.462C150.451 197.941 136.247 183.737 118.726 183.737C113.142 183.737 107.896 185.179 103.339 187.711C98.164 177.218 87.3593 170 74.8686 170C62.0592 170 51.0229 177.591 46.0133 188.521C42.9533 187.538 39.6909 187.008 36.3045 187.008C18.783 187.008 4.57895 201.212 4.57895 218.733C4.57895 223.93 5.82864 228.836 8.04395 233.165C3.1338 237.184 0 243.292 0 250.132C0 262.234 9.81102 272.045 21.9135 272.045H152.086C164.189 272.045 174 262.234 174 250.132C174 238.029 164.189 228.218 152.086 228.218H147.783Z" fill="#DADADA"/>
+                            </svg>
+                            
                     <div id="openAddNoteFromEmptyState" class="my-button">Add notes</div>
                     </div>
                 </Div>
