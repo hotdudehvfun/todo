@@ -36,7 +36,7 @@ function handleShowHideCreateTaskDialog()
 
     let id = "#add-task-panel-with-selected-list";
     //open
-    $("body").on("click","#open-add-new-task-panel, #openAddNoteFromEmptyState", function ()
+    $("body").on("click","#open-add-new-task-panel, #openAddNoteFromEmptyState, #editTaskButton", function ()
     {   
         $("#open-add-new-task-panel").toggleClass("rotate");
         $("#add-task-panel-with-selected-list").toggleClass("visible");

@@ -11,6 +11,17 @@ app.filter("sanitize", ['$sce', function($sce)
 
 app.controller('myctrl', function ($scope, $sce) {
 
+  //for searching made easy
+  $scope.getTasksOnly = function()
+  {
+    var allTasks = [];
+    $scope.listArray.forEach(list =>
+    {
+      allTasks=allTasks.concat(list.taskArray)      
+    });
+    //console.log(allTasks);
+    return allTasks;
+  };
   
   $scope.init = function ()
   {
@@ -20,11 +31,14 @@ app.controller('myctrl', function ($scope, $sce) {
     console.log($scope.listArray);
     $scope.defaultPageTitle = "Notebooks";
     $scope.pageTitle = $scope.defaultPageTitle;
+    $scope.taskI=-1;
+    $scope.allTasks=$scope.getTasksOnly();
   };
   
   $scope.init();
+
   $scope.loadList = function (index) {
-    //appObject.loadList(index);
+    //taskArray holds current list loaded in view
     $scope.taskArray = $scope.listArray[index].taskArray;
     $scope.selectedListName = $scope.listArray[index].title;
     $scope.selectedListIndex = index;
@@ -44,8 +58,10 @@ app.controller('myctrl', function ($scope, $sce) {
     $scope.pageTitle = $scope.defaultPageTitle;
   }
 
-  $scope.handleCreateList = function () {
-    if ($scope.newListName.length > 1) {
+  $scope.handleCreateList = function ()
+  {
+    if ($scope.newListName.length > 1)
+    {
       let newList = new List($scope.newListName);
       $scope.selectedListIndex = $scope.listArray.push(newList) - 1;
       showToast(`Notebook create:  ${newList.title}`);
@@ -65,6 +81,7 @@ app.controller('myctrl', function ($scope, $sce) {
       let newTask = new Task(newTaskContent);
       $scope.listArray[$scope.selectedListIndex].taskArray.push(newTask);
       showToast(`Note added`);
+      //close panel
       document.querySelector("#open-add-new-task-panel").classList.toggle("rotate");
       document.querySelector("#add-task-panel-with-selected-list").classList.toggle("visible");
       $scope.saveData();
@@ -96,18 +113,27 @@ app.controller('myctrl', function ($scope, $sce) {
     }
   }
 
-  $scope.handleClickOnTask=function($event)
+  $scope.handleClickOnTask=function($event,key)
   {
-    $event.stopPropagation();
-    console.log($event.target);
-    $scope.taskI=$event.target;
-    openTaskMoreOptions($event.target);     
+    //key is the index number of note in list
+    console.log(key);
+    $scope.taskI=key;
+    openTaskMoreOptions();     
   }
 
   $scope.deleteTask=function()
   {
-    let taskI=$scope.selectedTask.getAttribute("data-i");
-    console.log(taskI);    
+    if($scope.taskI>=0)
+    {
+      let removed=$scope.taskArray.splice($scope.taskI,1);
+      $scope.taskI=-1;
+      $scope.saveData();
+      closeTaskMoreOptions();
+      showToast("Note deleted!");  
+    }else
+    {
+      showToast("Error while removing note");      
+    }
   }
   $scope.moveTask=function(){
 
@@ -115,6 +141,42 @@ app.controller('myctrl', function ($scope, $sce) {
   $scope.mergeTask=function(){
 
   }
+  
+  $scope.editTask=function()
+  {
+    //open add box done from event open close nav bar js
+    //close more options
+    closeTaskMoreOptions();
+    //set content
+    $("#newTaskContent").html($scope.taskArray[$scope.taskI].title)
+    //change add to edit
+    document.querySelector("#confirm-change-button").style.display="block";
+    document.querySelector("#add-new-task-ok").style.display="none";
+    
+  }
+
+  $scope.updateTask=function()
+  {
+    $scope.taskArray[$scope.taskI].title=document.querySelector("#newTaskContent").innerHTML.trim();
+    document.querySelector("#open-add-new-task-panel").classList.toggle("rotate");
+    document.querySelector("#add-task-panel-with-selected-list").classList.toggle("visible");
+    
+    //revert back as it was to avoid making changes to older functions 
+    document.querySelector("#confirm-change-button").style.display="none";
+    document.querySelector("#add-new-task-ok").style.display="block";
+    $("#newTaskContent").html("")
+  }
+
+  $scope.cancelNewTask=function()
+  {
+    document.querySelector("#confirm-change-button").style.display="none";
+    document.querySelector("#add-new-task-ok").style.display="block";
+    $("#newTaskContent").html("")
+  }
+  
+
+
+
   
 
 });

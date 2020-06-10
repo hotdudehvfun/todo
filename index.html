@@ -16,7 +16,7 @@
         <div class="app-container">
 
             <!-- current list selected -->
-            <div id="selected-list-info" style="background-color: var(--bg-color);">
+            <div id="selected-list-info">
                 <!-- name and back button -->
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <i id="back-button" class="material-icons" ng-click="handleBackButton();" ng-hide="defaultPageTitle==pageTitle" ng-show="search.length>0">arrow_back</i>
@@ -39,14 +39,12 @@
 
                 <!-- search results -->
                 <Div id="search-results" style="display: block;" ng-show="search.length>0">
-                    <div style="text-align: center;font-size: 165%;">Search Results</div>
-                    <div ng-repeat="(key,value) in listArray ">
-                        <div ng-repeat="(k,v) in value.taskArray | filter: search | limitTo: 2">
-                            <div id="" class="task" ng-click="">
-                                <i class="material-icons" ng-bind="v.taskIcon"></i>
-                                <span ng-bind-html="v.title | sanitize"></span>
-
-                            </div>
+                    <div style="text-align: center;font-size: 125%;">Search Results</div>
+                    <div style="text-align: center;font-size: 85%;">Results found: {{filtered_search.length}}</div>
+                    <div ng-repeat="task in filtered_search = (allTasks | filter: search | limitTo: 10)">
+                        <div class="task" ng-click="">
+                            <i class="material-icons" ng-bind="task.taskIcon"></i>
+                            <span ng-bind-html="task.title | sanitize"></span>
                         </div>
                     </div>
                 </Div>
@@ -69,14 +67,14 @@
                 <!-- content of lists -->
                 <Div id="view-list-items" style="display: none;" ng-hide="search.length>0">
                     <div ng-repeat="(key,value) in taskArray" >
-                        <div class="task" ng-click="handleClickOnTask($event);" data-i="{{key}}">
+                        <div class="task" ng-click="handleClickOnTask($event,key);">
                             <i class="material-icons" ng-bind="value.taskIcon"></i>
                                 <span ng-bind-html="value.title | sanitize"></span>
                         </div>
                     </div>
 
                     <!-- empty state -->
-                    <div style="background-color: white;text-align: center; font-family: sans-serif;" ng-hide="taskArray.length">
+                    <div style="text-align: center; font-family: sans-serif;" ng-hide="taskArray.length">
                         <h1>Empty NoteBook</h1>
                         <svg width="100%" height="273" viewBox="0 0 509 273" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="267.5" cy="130.5" r="125.5" fill="#C7C7C7"/>
@@ -101,7 +99,7 @@
 
 
         <!-- create list fab button -->
-        <i id="open-add-new-list-panel" class="material-icons fab-button" ng-hide="defaultPageTitle!=pageTitle">close</i>
+        <i style="margin-bottom: 10px;" id="open-add-new-list-panel" class="material-icons fab-button" ng-hide="defaultPageTitle!=pageTitle">close</i>
         
         <!-- hide add task button if list is not opened -->
         <i style="bottom: 80px;" id="open-add-new-task-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">book</i>
@@ -117,8 +115,10 @@
         <div class="add-task-list-title" ng-attr-placeholder="List name...">{{selectedListName}}</div>
         <div contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
         <div class="add-task-options">
-            <div class="my-button close-button">Cancel</div>
+            <div ng-click="cancelNewTask();" class="my-button close-button">Cancel</div>
             <div ng-click="handleSaveTask();" id="add-new-task-ok" class="my-button">Add</div>
+            <div id='confirm-change-button' style="display: none;" ng-click="updateTask();" class="my-button">Confirm Changes</div>
+            
         </div>
     </div>
 
@@ -188,7 +188,8 @@
 
     <!-- taskMoreOptiosContainer -->
     <div class="taskMoreOptionsConatiner hide-task-more-options">
-        <div id="taskRemove" ng-click="deleteTask();">Delete Note </div>
+        <div id="editTaskButton" ng-click="editTask();">Edit Note </div>
+        <div ng-click="deleteTask();">Delete Note </div>
         <div id="taskRemove" ng-click="moveTask();">Move Note </div>
         <div id="taskRemove" ng-click="mergeTask();">Merge With another Note </div>
         <div id="close-task-more-options" onclick="closeTaskMoreOptions();">Close X</div>
