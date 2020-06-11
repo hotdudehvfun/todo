@@ -7,7 +7,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="scripts/storage.js"></script>
-    <link href="styles/material.icon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
@@ -31,7 +32,12 @@
                 </div>
 
                 <input id="search-box"  ng-model="search" ng-attr-placeholder="Search..." value=""/>
-                <!-- <textarea id="back"></textarea> -->
+                <div ng-click="cancelAction();" class="cancel-action danger" ng-show="moveInProgress || mergeInProgress">
+                    <div>
+                    <i class="material-icons">close</i>
+                            <div>Cancel Action</div> 
+                        </div>
+                    </div>
 
             </div>
             <!--contains tasks-->
@@ -114,6 +120,13 @@
     <div id="add-task-panel-with-selected-list" class="nav-bar-panel" data-dateId="#datetimepicker1">
         <div class="add-task-list-title" ng-attr-placeholder="List name...">{{selectedListName}}</div>
         <div contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
+        <div>
+            <div class="button" onClick="insertListFormat()">
+                <i class="material-icons">format_list_numbered</i>
+            </div>
+            
+            
+        </div>
         <div class="add-task-options">
             <div ng-click="cancelNewTask();" class="my-button close-button">Cancel</div>
             <div ng-click="handleSaveTask();" id="add-new-task-ok" class="my-button">Add</div>
@@ -188,11 +201,28 @@
 
     <!-- taskMoreOptiosContainer -->
     <div class="taskMoreOptionsConatiner hide-task-more-options">
-        <div id="editTaskButton" ng-click="editTask();">Edit Note </div>
-        <div ng-click="deleteTask();">Delete Note </div>
-        <div id="taskRemove" ng-click="moveTask();">Move Note </div>
-        <div id="taskRemove" ng-click="mergeTask();">Merge With another Note </div>
-        <div id="close-task-more-options" onclick="closeTaskMoreOptions();">Close X</div>
+        <div id="editTaskButton" ng-click="editTask();"> 
+            <i class="material-icons ">edit</i>
+            <div>Edit note</div> 
+        </div>
+        <div ng-click="deleteTask();" class="danger">
+            <i class="material-icons">delete</i>
+            <div>Delete note</div>
+        </div>
+        
+        <div ng-click="moveTask();">
+            <i class="material-icons">mediation</i>
+            <div>Move to another list</div> 
+        </div>
+        <div ng-click="mergeTask();">
+            <i class="material-icons">architecture</i>
+            <div>Merge with another note</div>
+        </div>
+        <div id="close-task-more-options" onclick="closeTaskMoreOptions();">
+            <i class="material-icons">cancel</i>
+            <div>Close</div> 
+        
+        </div>
     </div>
 
 

@@ -195,3 +195,29 @@ function switchTheme(e)
         document.documentElement.setAttribute('data-theme', 'light');
     }    
 }
+
+
+function insertHtmlAtCursor(html)
+{
+  var sel, range, node;
+  if (window.getSelection) {
+      sel = window.getSelection();
+      if (sel.getRangeAt && sel.rangeCount) {
+          range = window.getSelection().getRangeAt(0);
+          node = range.createContextualFragment(html);
+          range.insertNode(node);
+      }
+  }
+}
+
+function insertListFormat()
+{
+  document.querySelector("#newTaskContent").focus();
+  insertHtmlAtCursor('<ol><li>Type here</li></ol>')
+}
+
+function insertListWithCheckBoxes()
+{
+  document.querySelector("#newTaskContent").focus();
+  insertHtmlAtCursor('<input class="check-in-note" type="checkbox"/>')
+}

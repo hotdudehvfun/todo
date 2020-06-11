@@ -26,6 +26,8 @@ app.controller('myctrl', function ($scope, $sce) {
   $scope.init = function ()
   {
     console.log("init");
+    $scope.moveInProgress=false
+    $scope.mergeInProgress=false
     $scope.listArray = readData();
     $scope.taskArray = [];
     console.log($scope.listArray);
@@ -37,15 +39,38 @@ app.controller('myctrl', function ($scope, $sce) {
   
   $scope.init();
 
-  $scope.loadList = function (index) {
-    //taskArray holds current list loaded in view
-    $scope.taskArray = $scope.listArray[index].taskArray;
-    $scope.selectedListName = $scope.listArray[index].title;
-    $scope.selectedListIndex = index;
-    $scope.pageTitle = $scope.selectedListName;
-    console.log($scope.taskArray);
-    document.querySelector("#view-lists").style.display = "none";
-    document.querySelector("#view-list-items").style.display = "block";
+  $scope.loadList = function (index)
+  {
+
+    // a valid list is selected
+    if(index>=0)
+    {
+     
+      $scope.taskArray = $scope.listArray[index].taskArray;
+      $scope.selectedListName = $scope.listArray[index].title;
+      $scope.selectedListIndex = index;
+      $scope.pageTitle = $scope.selectedListName;
+      console.log($scope.taskArray); 
+      
+      //hide list view
+      document.querySelector("#view-lists").style.display = "none";
+      
+      //show its content
+      document.querySelector("#view-list-items").style.display = "block";
+      
+      if($scope.moveInProgress)
+      {
+        //save task to move
+        $scope.taskArray.push($scope.noteToMove);
+        showToast("Note moved!")
+        $scope.moveInProgress=false
+        $scope.noteToMove=null;
+        $scope.saveData();
+      }
+      
+    }
+
+
   }
 
 
@@ -81,9 +106,13 @@ app.controller('myctrl', function ($scope, $sce) {
       let newTask = new Task(newTaskContent);
       $scope.listArray[$scope.selectedListIndex].taskArray.push(newTask);
       showToast(`Note added`);
-      //close panel
+
+      //close panel and clean up
       document.querySelector("#open-add-new-task-panel").classList.toggle("rotate");
       document.querySelector("#add-task-panel-with-selected-list").classList.toggle("visible");
+      $("#newTaskContent").html("");
+
+      //at last save to local storage
       $scope.saveData();
     }
   }
@@ -115,31 +144,107 @@ app.controller('myctrl', function ($scope, $sce) {
 
   $scope.handleClickOnTask=function($event,key)
   {
-    //key is the index number of note in list
-    console.log(key);
-    $scope.taskI=key;
-    openTaskMoreOptions();     
+   
+    if($scope.mergeInProgress)
+    {
+      //merge in progress no need to show options
+      //merger with selected task
+      $scope.taskI=key;
+      if($scope.taskI==$scope.oldTaskI)
+      {
+        showToast("Cannot merge with same Note");
+      }else{
+        
+        //concat selected content at the end
+        $scope.taskArray[$scope.taskI].title+="\n"+$scope.taskArray[$scope.oldTaskI].title;
+  
+        //remove old note now
+        $scope.deleteTask($scope.oldTaskI);
+        $scope.oldTaskI=-1;
+        
+        $scope.mergeInProgress=false;
+        
+        showToast("Merge complete");
+        $scope.saveData();
+      }
+      
+    }else
+    {
+      //key is the index number of note in list
+      console.log(key);
+      $scope.taskI=key;
+      openTaskMoreOptions();     
+    }
   }
 
-  $scope.deleteTask=function()
+  $scope.deleteTask=function(index)
   {
-    if($scope.taskI>=0)
+
+    let indexToRemove=-1;
+    if(index!==undefined)
     {
-      let removed=$scope.taskArray.splice($scope.taskI,1);
-      $scope.taskI=-1;
+      //use supplied argument
+      indexToRemove=index;
+    }else
+    {
+      //no args try getting selected note
+      if($scope.taskI>=0)
+      {
+        indexToRemove=$scope.taskI;
+        $scope.taskI=-1;  
+      }
+    }
+      
+    if(indexToRemove!=-1)
+    {
+      let removed=$scope.taskArray.splice(indexToRemove,1);
       $scope.saveData();
       closeTaskMoreOptions();
-      showToast("Note deleted!");  
+      showToast("Note deleted!");
     }else
     {
       showToast("Error while removing note");      
-    }
+    }    
   }
-  $scope.moveTask=function(){
+
+
+  $scope.moveTask=function()
+  {
+    //move to another list
+    $scope.noteToMove=$scope.taskArray[$scope.taskI];
+    $scope.moveInProgress=true;
+    showToast("Tap on List to move note in List");
+    closeTaskMoreOptions();
+    $scope.handleBackButton();
 
   }
-  $scope.mergeTask=function(){
+  
+  
+  $scope.mergeTask=function()
+  {
+    //save selected note position
+    $scope.oldTaskI=$scope.taskI;
+    
+    //close panel
+    closeTaskMoreOptions();
+    
+    //show message
+    showToast("Tap on note to merge selected note");
 
+    //active merge task in progress
+    $scope.mergeInProgress=true;
+  }
+
+  $scope.cancelAction=function()
+  {
+    //cancel move or merge
+    $scope.mergeInProgress=false;
+    $scope.oldTaskI=-1
+    
+    $scope.moveInProgress=false;
+    $scope.noteToMove=null;
+    console.log("action cancelled")
+    showToast("Action Cancelled")
   }
   
   $scope.editTask=function()
@@ -147,8 +252,10 @@ app.controller('myctrl', function ($scope, $sce) {
     //open add box done from event open close nav bar js
     //close more options
     closeTaskMoreOptions();
+    
     //set content
     $("#newTaskContent").html($scope.taskArray[$scope.taskI].title)
+    
     //change add to edit
     document.querySelector("#confirm-change-button").style.display="block";
     document.querySelector("#add-new-task-ok").style.display="none";
@@ -165,6 +272,8 @@ app.controller('myctrl', function ($scope, $sce) {
     document.querySelector("#confirm-change-button").style.display="none";
     document.querySelector("#add-new-task-ok").style.display="block";
     $("#newTaskContent").html("")
+
+    showToast("Note updated");
   }
 
   $scope.cancelNewTask=function()
