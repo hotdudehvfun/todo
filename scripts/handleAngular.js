@@ -283,6 +283,16 @@ app.controller('myctrl', function ($scope, $sce) {
     $("#newTaskContent").html("")
   }
   
+  $scope.purgeList=function()
+  {
+    
+    $scope.taskArray=[]
+    showToast("List is empty now")
+    $scope.saveData();
+    closeTaskMoreOptions()
+
+  }
+  
 
 
 
