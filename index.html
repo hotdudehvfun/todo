@@ -120,11 +120,16 @@
     <div id="add-task-panel-with-selected-list" class="nav-bar-panel" data-dateId="#datetimepicker1">
         <div class="add-task-list-title" ng-attr-placeholder="List name...">{{selectedListName}}</div>
         <div contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
-        <div>
-            <div class="button" onClick="insertListFormat()">
+        <div class="add-task-edit-options">
+            <div class="button" onClick="insertList('ol')">
                 <i class="material-icons">format_list_numbered</i>
             </div>
-            
+            <div class="button" onClick="insertHeading()">
+                <i class="material-icons">title</i>
+            </div>
+            <div class="button" onClick="insertList('ul')">
+                <i class="material-icons">list</i>
+            </div>
             
         </div>
         <div class="add-task-options">

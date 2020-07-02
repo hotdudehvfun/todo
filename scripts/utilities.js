@@ -210,14 +210,15 @@ function insertHtmlAtCursor(html)
   }
 }
 
-function insertListFormat()
+function insertList(type)
 {
   document.querySelector("#newTaskContent").focus();
-  insertHtmlAtCursor('<ol><li>Type here</li></ol>')
+  var html=`<${type}><li>Type here</li></${type}>`;
+  insertHtmlAtCursor(html)
 }
 
-function insertListWithCheckBoxes()
+function insertHeading()
 {
   document.querySelector("#newTaskContent").focus();
-  insertHtmlAtCursor('<input class="check-in-note" type="checkbox"/>')
+  insertHtmlAtCursor('<h1>Heading 1<h1/>')
 }
