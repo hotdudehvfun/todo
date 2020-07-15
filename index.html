@@ -15,7 +15,7 @@
 <body ng-app="myapp" ng-controller='myctrl'>
     <div class="main-container">
         <div class="app-container">
-
+            
             <!-- current list selected -->
             <div id="selected-list-info">
                 <!-- name and back button -->
@@ -24,14 +24,14 @@
                     <div class="list-with-title" id="selectedList" style="display: block;" ng-bind="pageTitle"></div>
                 </div>
 
-                <!-- search button -->
-                <div>
-                    <span id="list-age" class="list-sub-text"></span>
-                    <span class="list-sub-text" id="list-progress-1"></span>
-                    <span class="list-sub-text" id="list-progress-2"></span>
-                </div>
 
+                <!-- search button -->
                 <input id="search-box"  ng-model="search" ng-attr-placeholder="Search..." value=""/>
+                <a href="https://hotdudehvfun.github.io/flashcards/index.html" style="text-align: center; color:#111;">
+                    <div>Open myNotes</div>
+                </a>
+
+                <!-- cancel action interface -->
                 <div ng-click="cancelAction();" class="cancel-action danger" ng-show="moveInProgress || mergeInProgress">
                     <div>
                     <i class="material-icons">close</i>
@@ -40,6 +40,7 @@
                     </div>
 
             </div>
+
             <!--contains tasks-->
             <div id="tasks-container">
 
