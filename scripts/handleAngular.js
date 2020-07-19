@@ -23,21 +23,7 @@ app.controller('myctrl', function ($scope, $sce) {
     return allTasks;
   };
   
-  $scope.init = function ()
-  {
-    console.log("init");
-    $scope.moveInProgress=false
-    $scope.mergeInProgress=false
-    $scope.listArray = readData();
-    $scope.taskArray = [];
-    console.log($scope.listArray);
-    $scope.defaultPageTitle = "Notebooks";
-    $scope.pageTitle = $scope.defaultPageTitle;
-    $scope.taskI=-1;
-    $scope.allTasks=$scope.getTasksOnly();
-  };
-  
-  $scope.init();
+
 
   $scope.loadList = function (index)
   {
@@ -82,6 +68,18 @@ app.controller('myctrl', function ($scope, $sce) {
     $scope.search="";
     $scope.pageTitle = $scope.defaultPageTitle;
   }
+
+  $scope.init_hammer_touch_events=function()
+  {
+    var hammertime = new Hammer(document.querySelector("body"));
+    //console.log(hammertime)
+    hammertime.on('swiperight', function(ev)
+    {
+      //handle back button here
+      $scope.handleBackButton()
+    });
+  }
+
 
   $scope.handleCreateList = function ()
   {
@@ -173,13 +171,14 @@ app.controller('myctrl', function ($scope, $sce) {
       //key is the index number of note in list
       console.log(key);
       $scope.taskI=key;
-      openTaskMoreOptions();     
+      openTaskMoreOptions(); 
+      //also get completed status of task to change value of strike out or not
+      $scope.task_completed_state=$scope.taskArray[$scope.taskI].isTaskCompleted    
     }
   }
 
   $scope.deleteTask=function(index)
   {
-
     let indexToRemove=-1;
     if(index!==undefined)
     {
@@ -272,8 +271,8 @@ app.controller('myctrl', function ($scope, $sce) {
     document.querySelector("#confirm-change-button").style.display="none";
     document.querySelector("#add-new-task-ok").style.display="block";
     $("#newTaskContent").html("")
-
     showToast("Note updated");
+
   }
 
   $scope.cancelNewTask=function()
@@ -285,17 +284,45 @@ app.controller('myctrl', function ($scope, $sce) {
   
   $scope.purgeList=function()
   {
-    
     $scope.taskArray=[]
     showToast("List is empty now")
     $scope.saveData();
     closeTaskMoreOptions()
-
   }
+
+
+  $scope.strike_out_task=function()
+  {
+
+    if($scope.taskI>=0)
+    {
+      $scope.taskArray[$scope.taskI].isTaskCompleted=!$scope.taskArray[$scope.taskI].isTaskCompleted;
+      //also add strike out class
+      $scope.saveData();
+      closeTaskMoreOptions();
+      showToast("Note Strike out!");
+
+    }   
+  }
+
+
+  //define all funcions above init
+  $scope.init = function ()
+  {
+    console.log("init");
+    $scope.moveInProgress=false
+    $scope.mergeInProgress=false
+    $scope.listArray = readData();
+    $scope.taskArray = [];
+    console.log($scope.listArray);
+    $scope.defaultPageTitle = "Notebooks";
+    $scope.pageTitle = $scope.defaultPageTitle;
+    $scope.taskI=-1;
+    $scope.allTasks=$scope.getTasksOnly();
+    $scope.init_hammer_touch_events()
+  };
   
-
-
-
+  $scope.init();
   
 
 });
@@ -323,9 +350,9 @@ function readData()
 }
 
 function setupDemoList()
-  {
-    let list = new List("Your First Notebook");
-    let task = new Task("We have added first note!");
-    list.taskArray.push(task);
-    return [list];
-  }
+{
+  let list = new List("Your First Notebook");
+  let task = new Task("We have added first note!");
+  list.taskArray.push(task);
+  return [list];
+}

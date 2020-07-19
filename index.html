@@ -6,13 +6,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="scripts/hammer.js"></script>
     <script src="scripts/storage.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
-<body ng-app="myapp" ng-controller='myctrl'>
+<body ng-app="myapp" ng-controller='myctrl' ng-swipe-right="handleBackButton()">
     <div class="main-container">
         <div class="app-container">
             
@@ -27,10 +28,6 @@
 
                 <!-- search button -->
                 <input id="search-box"  ng-model="search" ng-attr-placeholder="Search..." value=""/>
-                <a href="https://hotdudehvfun.github.io/flashcards/index.html" style="text-align: center; color:#111;">
-                    <div>Open myNotes</div>
-                </a>
-
                 <!-- cancel action interface -->
                 <div ng-click="cancelAction();" class="cancel-action danger" ng-show="moveInProgress || mergeInProgress">
                     <div>
@@ -74,7 +71,8 @@
                 <!-- content of lists -->
                 <Div id="view-list-items" style="display: none;" ng-hide="search.length>0">
                     <div ng-repeat="(key,value) in taskArray" >
-                        <div class="task" ng-click="handleClickOnTask($event,key);">
+                        <!-- ng-class= css_class : condition -->
+                        <div class="task" ng-class="{completed: value.isTaskCompleted}"  ng-click="handleClickOnTask($event,key);">
                             <i class="material-icons" ng-bind="value.taskIcon"></i>
                                 <span ng-bind-html="value.title | sanitize"></span>
                         </div>
@@ -224,10 +222,21 @@
             <i class="material-icons">architecture</i>
             <div>Merge with another note</div>
         </div>
+        
+        <div ng-click="strike_out_task();" ng-show="task_completed_state">
+            <i class="material-icons">done_outline</i>
+            <div>Strike Clear</div>
+        </div>
+        <div ng-click="strike_out_task();" ng-show="!task_completed_state">
+            <i class="material-icons">done</i>
+            <div>Strike Out</div>
+        </div>
+        
+
+        
         <div id="close-task-more-options" onclick="closeTaskMoreOptions();">
             <i class="material-icons">cancel</i>
             <div>Close</div> 
-        
         </div>
     </div>
 
