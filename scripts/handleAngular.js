@@ -1,6 +1,7 @@
 let app = angular.module("myapp", []);
-
-console.log("version:3")
+//use this to create new properties on previous version
+let patchApplied=false;
+console.log("version:3.1.0")
 
 app.filter("sanitize", ['$sce', function($sce)
 {
@@ -81,6 +82,15 @@ app.controller('myctrl', function ($scope, $sce) {
   }
 
 
+  $scope.checkIfEnterPressed=function(e)
+  {
+    if(e.keyCode==13)
+    {
+      $scope.handleCreateList()
+      e.target.value="";
+    }
+  }
+
   $scope.handleCreateList = function ()
   {
     if ($scope.newListName.length > 1)
@@ -89,8 +99,6 @@ app.controller('myctrl', function ($scope, $sce) {
       $scope.selectedListIndex = $scope.listArray.push(newList) - 1;
       showToast(`Notebook create:  ${newList.title}`);
 
-      document.querySelector("#open-add-new-list-panel").classList.toggle("rotate");
-      document.querySelector("#add-new-task-with-new-list").classList.toggle("visible");
       $scope.saveData();
     }
   }
@@ -106,8 +114,6 @@ app.controller('myctrl', function ($scope, $sce) {
       showToast(`Note added`);
 
       //close panel and clean up
-      document.querySelector("#open-add-new-task-panel").classList.toggle("rotate");
-      document.querySelector("#add-task-panel-with-selected-list").classList.toggle("visible");
       $("#newTaskContent").html("");
 
       //at last save to local storage
@@ -264,15 +270,13 @@ app.controller('myctrl', function ($scope, $sce) {
   $scope.updateTask=function()
   {
     $scope.taskArray[$scope.taskI].title=document.querySelector("#newTaskContent").innerHTML.trim();
-    document.querySelector("#open-add-new-task-panel").classList.toggle("rotate");
-    document.querySelector("#add-task-panel-with-selected-list").classList.toggle("visible");
     
-    //revert back as it was to avoid making changes to older functions 
+    //revert back
     document.querySelector("#confirm-change-button").style.display="none";
     document.querySelector("#add-new-task-ok").style.display="block";
     $("#newTaskContent").html("")
     showToast("Note updated");
-
+    $scope.saveData()
   }
 
   $scope.cancelNewTask=function()
@@ -313,6 +317,13 @@ app.controller('myctrl', function ($scope, $sce) {
     $scope.moveInProgress=false
     $scope.mergeInProgress=false
     $scope.listArray = readData();
+    if(patchApplied)
+    {
+      //if new property added to previous version
+      //save these properties now
+      $scope.saveData();
+    }
+
     $scope.taskArray = [];
     console.log($scope.listArray);
     $scope.defaultPageTitle = "Notebooks";
@@ -323,7 +334,6 @@ app.controller('myctrl', function ($scope, $sce) {
   };
   
   $scope.init();
-  
 
 });
 
@@ -341,6 +351,8 @@ function readData()
       //load
       let json = JSON.parse(appData);
       // document.querySelector("#back").value=appData;
+      //apply border color theme patch
+      json=borderColorThemePatch(json);
       return json;
     }
   } catch (error)
@@ -355,4 +367,22 @@ function setupDemoList()
   let task = new Task("We have added first note!");
   list.taskArray.push(task);
   return [list];
+}
+
+function borderColorThemePatch(json)
+{
+  json.forEach(item=>
+  {
+    item.borderColor=item.borderColor || {};
+    console.log(item.borderColor)
+    if(item.borderColor.length==undefined)
+    {
+      //newly created property
+      //assign random color
+      item.borderColor=getRandomColor();
+      patchApplied=true;
+    }
+  })
+
+  return json;
 }

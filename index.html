@@ -23,6 +23,7 @@
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <i id="back-button" class="material-icons" ng-click="handleBackButton();" ng-hide="defaultPageTitle==pageTitle" ng-show="search.length>0">arrow_back</i>
                     <div class="list-with-title" id="selectedList" style="display: block;" ng-bind="pageTitle"></div>
+                    <i id="open-more-panel" style="z-index: 999;" class="material-icons">more_vert</i>
                 </div>
 
 
@@ -57,9 +58,9 @@
                 <Div id="view-lists" style="display: block;" ng-hide="search.length>0">
                     <div ng-repeat="(key,value) in listArray">
 
-                        <div class="list-panel-item" ng-click="loadList($index)">
+                        <div class="list-panel-item" ng-click="loadList($index)" ng-style="{borderColor: value.borderColor}">
                             <div class="list-panel-item-title">
-                                <i class="material-icons"></i>
+                                <i class="material-icons" ng-style="{background: value.borderColor}"></i>
                                 <article class="selected" ng-bind="value.title"></article>
                             </div>
 
@@ -97,59 +98,72 @@
 
             </div>
 
-        </div>
 
-
-
-
-
-        <!-- create list fab button -->
-        <i style="margin-bottom: 10px;" id="open-add-new-list-panel" class="material-icons fab-button" ng-hide="defaultPageTitle!=pageTitle">close</i>
-        
-        <!-- hide add task button if list is not opened -->
-        <i style="bottom: 80px;" id="open-add-new-task-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">book</i>
-        
-        <!-- hide add task button if list is not opened -->
-        <i style="bottom: 15px; z-index: 999;" id="open-more-panel" class="material-icons fab-button" ng-hide="defaultPageTitle==pageTitle">settings</i>
-        
-    </div>
-
-
-    <!-- add new task -->
-    <div id="add-task-panel-with-selected-list" class="nav-bar-panel" data-dateId="#datetimepicker1">
-        <div class="add-task-list-title" ng-attr-placeholder="List name...">{{selectedListName}}</div>
-        <div contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
-        <div class="add-task-edit-options">
-            <div class="button" onClick="insertList('ol')">
-                <i class="material-icons">format_list_numbered</i>
+            <!-- bottom panels -->
+            <!-- PANEL 1: create new list -->
+            <!-- show only when list view is in focus -->
+            <div id="add-new-task-with-new-list" class="nav-bar-panel visible" style="box-shadow: 1px 1px 3px #707070;" ng-show="defaultPageTitle==pageTitle">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <i class="material-icons" style="font-size: 20px">bubble_chart</i>
+                    <input ng-keypress="checkIfEnterPressed($event)" class="add-new-list-title"  ng-model="newListName" ng-attr-placeholder="New NoteBook name..."/>
+                    <i ng-click="handleCreateList();" class="material-icons" style="color: mediumslateblue; font-size: 20px;">send</i>
+                </div>
             </div>
-            <div class="button" onClick="insertHeading()">
-                <i class="material-icons">title</i>
-            </div>
-            <div class="button" onClick="insertList('ul')">
-                <i class="material-icons">list</i>
-            </div>
+
+
+             <!-- PANEL 2: add new task  -->
+            <!-- show only when single list is in focus -->
+            <div id="add-task-panel-with-selected-list" class="nav-bar-panel visible" ng-show="defaultPageTitle!=pageTitle">
+                <div style="
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            ">
+                <i class="material-icons" style="
+                color: mediumslateblue;
+            ">bubble_chart</i>
+                <div contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
+                <i id="add-new-task-ok" ng-click="handleSaveTask();" class="material-icons" style="
+                color: mediumslateblue;
+            ">send</i>
+                <i id="confirm-change-button" style="display: none;" ng-click="updateTask();" class="material-icons" style="
+                color: mediumslateblue;
+            ">reply</i>
             
+                </div>                
+                            
+                            <div class="add-task-edit-options">
+                                <div class="button" onclick="insertList('ol')">
+                                    <i class="material-icons">format_list_numbered</i>
+                                </div>
+                                <div class="button" onclick="insertHeading()">
+                                    <i class="material-icons">title</i>
+                                </div>
+                                <div class="button" onclick="insertList('ul')">
+                                    <i class="material-icons">list</i>
+                                </div>
+                                
+                            </div>
+                            <div class="add-task-options">
+                                <!-- <div  id="add-new-task-ok" class="my-button">Add</div>
+                                <div id="confirm-change-button" style="display: none;" ng-click="updateTask();" class="my-button">Confirm Changes</div> -->
+                            </div>
+                        </div>
+
         </div>
-        <div class="add-task-options">
-            <div ng-click="cancelNewTask();" class="my-button close-button">Cancel</div>
-            <div ng-click="handleSaveTask();" id="add-new-task-ok" class="my-button">Add</div>
-            <div id='confirm-change-button' style="display: none;" ng-click="updateTask();" class="my-button">Confirm Changes</div>
-            
-        </div>
+
+
+        
+        
+        
     </div>
 
 
-    <!-- create new list -->
-    <div id="add-new-task-with-new-list" class="nav-bar-panel">
-        <input class="add-new-list-title"  ng-model="newListName" ng-attr-placeholder="New NoteBook name..."/>
 
-        <div class="add-task-options">
-            <div class="my-button close-button">Cancel</div>
-            <div ng-click="handleCreateList();" id="add-new-task-ok" class="my-button">Add</div>
+   
 
-        </div>
-    </div>
+
+
 
 
 
@@ -191,7 +205,6 @@
             <span>Delete List</span>
             <i class="material-icons" style="background: #df3770;color: white;">delete</i>
         </div>
-
     </div>
 
     <!-- blocking screen  -->
@@ -231,9 +244,6 @@
             <i class="material-icons">done</i>
             <div>Strike Out</div>
         </div>
-        
-
-        
         <div id="close-task-more-options" onclick="closeTaskMoreOptions();">
             <i class="material-icons">cancel</i>
             <div>Close</div> 

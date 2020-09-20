@@ -222,3 +222,18 @@ function insertHeading()
   document.querySelector("#newTaskContent").focus();
   insertHtmlAtCursor('<h1>Heading 1<h1/>')
 }
+
+function getRandomColor()
+{
+  let colors=
+  [
+    "#8bc34a",
+    "#E91E63",
+    "#CDDC39",
+    "#00BCD4",
+    "#009688"
+  ]
+
+  return colors[getRandomInt(0,colors.length-1)]
+
+}

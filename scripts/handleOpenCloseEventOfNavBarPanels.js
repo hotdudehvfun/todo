@@ -35,18 +35,16 @@ toggleMoreOptionsState = (state) => {
             }
         });
         document.querySelector("#block-screen").setAttribute("class", "");
+        
         //get size storage
         getStorageSize();
-document.querySelector("#open-more-panel").style.transform="rotate(180deg)";
     }
 
     close = () => {
-
         document.querySelector("#block-screen").setAttribute("class", "hide-block-screen");
         document.querySelectorAll(".more-options-item").forEach(element => {
             element.style.bottom = "-50px";
         });
-        document.querySelector("#open-more-panel").style.transform="rotate(0deg)";
     }
 
     dialogStates.moreOptions = !dialogStates.moreOptions;
@@ -54,7 +52,6 @@ document.querySelector("#open-more-panel").style.transform="rotate(180deg)";
         state = dialogStates.moreOptions;
     }
     state == true ? open() : close();
-
 }
 
 //same function for three panels

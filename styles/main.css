@@ -199,7 +199,6 @@ input:focus {
   flex-direction: column;
   align-self: baseline;
   padding: 1px 10px;
-  border-bottom: 1px solid var(--bg-color);
   border-left: 5px solid #d3d3d3;
   border-radius: 5px;
 }
@@ -499,20 +498,13 @@ search_list_name {
 }
 
 .nav-bar-panel {
-  bottom: 60px;
-  display: none;
   width: 100%;
   background: white;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
   flex-direction: column;
-  padding: 12px 10px 10px 10px;
-  position: absolute;
-  z-index: 999;
+  padding: 8px 5px;
 }
 
 .visible {
-  bottom: 0px;
   display: flex;
   animation: showPanel 0.2s;
 }
@@ -551,6 +543,7 @@ search_list_name {
   overflow-y: auto;
   max-height: 350px;
   border: 0px;
+  width: 100%;
 }
 
 .new-task-content:not(:empty) {
@@ -888,13 +881,13 @@ div#close-task-more-options {
 }
 
 #search-box {
-  padding: 12px 10px;
+  padding: 8px 10px;
   color: var(--font-color);
   border-radius: 5px;
   background: var(--bg-color);
   overflow-y: auto;
   width: -webkit-fill-available;
-  margin: 10px 10px;
+  margin: 5px 5px 0px 5px;
 }
 
 .alphabet-sort {
@@ -917,6 +910,7 @@ div#close-task-more-options {
 input.add-new-list-title {
   border-bottom: 1px solid gray;
   border-radius: 0px;
+  width: 100%;
 }
 
 .add-task-list-title {
@@ -1026,4 +1020,39 @@ input:checked + .slider:before {
 
 .add-task-edit-options {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#open-add-new-list-panel>div
+{
+    position:absolute;
+    background:#343434;
+    width:5px;
+    height:30px;
+    border-radius:2px;
+    transform:rotate(90deg);
+    transition:0.5s all;
+
+}
+#open-add-new-list-panel>div:nth-child(1)
+{
+    transform:rotate(-45deg);
+    top:0px;
+    height:20px;
+    left:0px;
+}
+
+#open-add-new-list-panel>div:nth-child(2)
+{
+   transform:rotate(45deg);
+   top:0px;
+}
+
+#open-add-new-list-panel>div:nth-child(3)
+{
+    transform:rotate(-45deg);
+    top:10px;
+    left:10px;
+    height:20px;
 }

@@ -395,11 +395,14 @@ class List {
   static ALL = 3;
   static PENDING = 4;
 
-  constructor(listName) {
+  constructor(listName)
+  {
     this.title = listName.trim();
     this.taskArray = [];
     this.dateCreated = Date.now();
     this.dateCompleted = "";
+    //default color
+    this.borderColor=getRandomColor();
   }
 
   //get task by id from a list
