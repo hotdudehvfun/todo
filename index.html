@@ -114,15 +114,28 @@
              <!-- PANEL 2: add new task  -->
             <!-- show only when single list is in focus -->
             <div id="add-task-panel-with-selected-list" class="nav-bar-panel visible" ng-show="defaultPageTitle!=pageTitle">
-                <div style="
+            
+                <div class="add-task-edit-options">
+                    <div class="button" onclick="insertList('ol')">
+                        <i class="material-icons">format_list_numbered</i>
+                    </div>
+                    <div class="button" onclick="insertHeading()">
+                        <i class="material-icons">title</i>
+                    </div>
+                    <div class="button" onclick="insertList('ul')">
+                        <i class="material-icons">list</i>
+                    </div>
+                </div>
+            <div style="
                 display: flex;
                 flex-direction: row;
                 align-items: center;
             ">
+            
                 <i class="material-icons" style="
                 color: mediumslateblue;
             ">bubble_chart</i>
-                <div contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
+                <div ng-focus="focus=true" ng-blur="focus=false" contenteditable="true" id="newTaskContent" class="new-task-content" placeholder="Add notes here..."></div>
                 <i id="add-new-task-ok" ng-click="handleSaveTask();" class="material-icons" style="
                 color: mediumslateblue;
             ">send</i>
@@ -132,22 +145,7 @@
             
                 </div>                
                             
-                            <div class="add-task-edit-options">
-                                <div class="button" onclick="insertList('ol')">
-                                    <i class="material-icons">format_list_numbered</i>
-                                </div>
-                                <div class="button" onclick="insertHeading()">
-                                    <i class="material-icons">title</i>
-                                </div>
-                                <div class="button" onclick="insertList('ul')">
-                                    <i class="material-icons">list</i>
-                                </div>
-                                
-                            </div>
-                            <div class="add-task-options">
-                                <!-- <div  id="add-new-task-ok" class="my-button">Add</div>
-                                <div id="confirm-change-button" style="display: none;" ng-click="updateTask();" class="my-button">Confirm Changes</div> -->
-                            </div>
+
                         </div>
 
         </div>
