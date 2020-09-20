@@ -193,7 +193,7 @@ input:focus {
 
 .list-panel-item {
   background-color: var(--bg-color);
-  margin: 5px 2px;
+  margin: 5px 0px;
   max-width: 500px;
   display: inline-flex;
   flex-direction: column;
@@ -258,9 +258,11 @@ input:focus {
   flex-direction: column;
   overflow-y: auto;
   height: 100%;
-  width: 100%;
   background-color: transparent;
-  padding: 0px 8px;
+  margin: 5px 5px 0px 5px;
+  padding: 0px;
+  padding-bottom: 10px;
+  border-radius: 5px;
 }
 
 .task {
