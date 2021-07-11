@@ -29,6 +29,10 @@
 
                 <!-- search button -->
                 <input id="search-box"  ng-model="search" ng-attr-placeholder="Search..." value=""/>
+
+                <!-- get current notebook copy in textarea -->
+                <textarea id='notebook_textarea'></textarea>
+
                 <!-- cancel action interface -->
                 <div ng-click="cancelAction();" class="cancel-action danger" ng-show="moveInProgress || mergeInProgress">
                     <div>
