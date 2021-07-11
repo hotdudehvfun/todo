@@ -37,7 +37,8 @@ app.controller('myctrl', function ($scope, $sce) {
       $scope.selectedListName = $scope.listArray[index].title;
       $scope.selectedListIndex = index;
       $scope.pageTitle = $scope.selectedListName;
-      console.log($scope.taskArray); 
+      console.log($scope.taskArray);
+      document.querySelector('#notebook_textarea').value=JSON.stringify($scope.taskArray);
       
       //hide list view
       document.querySelector("#view-lists").style.display = "none";
@@ -386,3 +387,4 @@ function borderColorThemePatch(json)
 
   return json;
 }
+{"mode":"full","isActive":false}
