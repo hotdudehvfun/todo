@@ -387,4 +387,3 @@ function borderColorThemePatch(json)
 
   return json;
 }
-{"mode":"full","isActive":false}
